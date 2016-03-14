@@ -6,7 +6,7 @@
 /*   By: tguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 17:00:43 by tguillem          #+#    #+#             */
-/*   Updated: 2015/11/24 17:01:36 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/14 14:40:16 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 
 void	ft_strdel(char **as)
 {
-	if (as)
-		ft_memdel((void **)as);
+	ft_memdel((void **)as);
 }

@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   buildin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/14 18:27:38 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/14 18:27:40 by tguillem         ###   ########.fr       */
+/*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
+/*   Updated: 2016/03/14 18:24:48 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		minishell_init(t_env **env_data, char **env)
+int				minishell_buildin_cd(char **args, char **env)
 {
-	if (!(*env_data = (t_env*)malloc(sizeof(env_data))))
-		return (-1);
-	(*env_data)->env = env;
-	(*env_data)->paths = convert_paths(env[get_env(env, "PATH")]);
-	return (0);
+	(void)args;
+	(void)env;
+	return (1);
+}
+
+int				minishell_buildin_env(char **env)
+{
+	char	**tmp;
+
+	tmp = env;
+	while (*tmp)
+	{
+		ft_putstr(*tmp);
+		ft_putchar('\n');
+		tmp++;
+	}
+	return (1);
 }

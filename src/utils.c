@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/14 18:28:34 by tguillem          #+#    #+#             */
+/*   Updated: 2016/03/14 18:30:29 by tguillem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-t_array	*array_init(t_array *root, char *str)
+t_array		*array_init(t_array *root, char *str)
 {
 	t_array		*result;
 	t_array		*tmp;
@@ -40,13 +52,17 @@ t_array		*convert_paths(char *path)
 	return (result);
 }
 
-char		*extract_paths(char **env)
+int			get_env(char **env, char *name)
 {
+	int	i;
+
+	i = 0;
 	while (*env)
 	{
-		if (ft_strstr(*env, "PATH") != NULL)
-			return (*env);
+		if (ft_strstr(*env, name) != NULL)
+			return (i);
 		env++;
+		i++;
 	}
-	return (NULL);
+	return (-1);
 }

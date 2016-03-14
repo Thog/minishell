@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 09:07:39 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/11 17:27:40 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/14 13:20:34 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ t_date					*ft_parse_date(time_t *time)
 	return (result);
 }
 
-
-void						ft_destroy_date(t_date *to_del)
+void					ft_destroy_date(t_date *to_del)
 {
 	if (to_del)
 	{

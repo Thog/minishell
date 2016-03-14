@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
+/*   Updated: 2016/03/14 18:28:49 by tguillem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	**minishell_split(char *line)
@@ -5,29 +17,7 @@ static char	**minishell_split(char *line)
 	return (ft_strsplit(line, ' '));
 }
 
-int			minishell_execute(char *name, char **args, char **env)
-{
-	pid_t		parent;
-	pid_t		child;
-	int			status;
-
-	parent = fork();
-	if (parent == 0)
-	{
-		ft_putnbr(execve(name,  args, env));
-	}
-	else if (parent < -1)
-		;
-	else
-	{
-		child = waitpid(parent, &status, WUNTRACED);
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-			child = waitpid(parent, &status, WUNTRACED);
-	}
-	return (1);
-}
-
-void		minishell_loop(char **env)
+void		minishell_loop(t_env *env)
 {
 	char	*line;
 	char	**args;
@@ -45,10 +35,7 @@ void		minishell_loop(char **env)
 		status = minishell_execute(args[0], args, env);
 		i = 0;
 		while (args[i] && *args[i])
-		{
-			free(args[i]);
-			i++;
-		}
+			free(args[i++]);
 		free(args);
 	}
 }
