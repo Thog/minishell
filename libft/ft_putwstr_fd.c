@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_putwstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/04 13:01:03 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:30:18 by tguillem         ###   ########.fr       */
+/*   Created: 2016/03/15 17:29:23 by tguillem          #+#    #+#             */
+/*   Updated: 2016/03/15 17:31:22 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putwstr(wchar_t *strr)
+void		ft_putwstr_fd(wchar_t *strr, int fd)
 {
-	ft_putwstr_fd(strr, 1);
+	while (*strr)
+		ft_putwchar_fd(*strr++, fd);
 }

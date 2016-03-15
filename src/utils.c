@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/14 18:30:29 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/15 16:07:07 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,6 @@ t_array		*array_init(t_array *root, char *str)
 	return (result);
 }
 
-t_array		*convert_paths(char *path)
-{
-	t_array	*result;
-	char	**paths;
-	int		i;
-
-	if (!path)
-		return (NULL);
-	result = NULL;
-	i = 0;
-	paths = ft_strsplit(path + 5, ':');
-	while (paths[i] && *paths[i])
-	{
-		result = array_init(result, ft_strdup(paths[i]));
-		free(paths[i++]);
-	}
-	free(paths);
-	return (result);
-}
-
 int			get_env(char **env, char *name)
 {
 	int	i;
@@ -65,4 +45,28 @@ int			get_env(char **env, char *name)
 		i++;
 	}
 	return (-1);
+}
+
+t_array			*array_get(t_array *env, char *name)
+{
+	while (env)
+	{
+		if (ft_strstr(env->data, name) != NULL)
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
+}
+
+int				char_array_length(char **array)
+{
+	int		result;
+
+	result = 0;
+	while (*array && **array)
+	{
+		array++;
+		result++;
+	}
+	return (result);
 }

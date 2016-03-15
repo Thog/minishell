@@ -6,7 +6,7 @@
 /*   By: tguillem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:49:44 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/10 16:35:30 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/15 17:53:09 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <inttypes.h>
 # include "ft_time.h"
+# include "ft_printf/ft_printf.h"
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
@@ -103,9 +104,12 @@ char				*ft_strtrimcmp(const char *s, int (*f)(int c));
 int					ft_max(int x, int y);
 int					ft_min(int x, int y);
 void				ft_putnbrbase(uintmax_t nbr, char *base);
+void				ft_putnbrbase_fd(uintmax_t nbr, char *base, int fd);
 size_t				ft_wstrlen(wchar_t *str);
 void				ft_putwchar(wchar_t chr);
+void				ft_putwchar_fd(wchar_t chr, int fd);
 void				ft_putwstr(wchar_t *strr);
+void				ft_putwstr_fd(wchar_t *strr, int fd);
 int					ft_count_digit(int value, int base);
 char				*ft_itoa_base(int value, int base);
 

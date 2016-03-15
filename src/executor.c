@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/14 18:32:49 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/15 18:45:15 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ static int	execute(char *name, char **args, char **env)
 	if (parent == 0)
 	{
 		execve(name, args, env);
-		ft_putstr_fd("minishell: command not found: ", 2);
-		ft_putstr_fd(name, 2);
-		ft_putchar_fd('\n', 2);
+		ft_printf_fd(2, "minishell: command not found: %s\n", name);
 		exit(1);
 	}
 	else if (parent < -1)
@@ -34,6 +32,8 @@ static int	execute(char *name, char **args, char **env)
 		child = waitpid(parent, &status, WUNTRACED);
 		while (!WIFEXITED(status) && !WIFSIGNALED(status))
 			child = waitpid(parent, &status, WUNTRACED);
+		if (WIFSIGNALED(status))
+			printsignal(child, status);
 	}
 	return (1);
 }
@@ -68,16 +68,22 @@ static char	*find_path(char *name, t_array *paths)
 int			minishell_execute(char *name, char **args, t_env *env)
 {
 	char	*path;
+	char	**tmp_env;
+	int		result;
 
 	path = NULL;
+	tmp_env = NULL;
 	if (!name || !*name)
 		return (1);
 	if (!ft_strcmp(name, "exit"))
 		return (0);
 	if (!ft_strcmp(name, "cd"))
-		return (minishell_buildin_cd(args, env->env));
+		return (minishell_buildin_cd(args, env));
 	if (!ft_strcmp(name, "env"))
-		return (minishell_buildin_env(env->env));
+		return (minishell_buildin_env(env));
 	path = find_path(name, env->paths);
-	return (execute(path, args, env->env));
+	tmp_env = to_char_array(env->env);
+	result = execute(path, args, tmp_env);
+	free(tmp_env);
+	return (result);
 }

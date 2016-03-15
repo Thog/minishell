@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/04 13:01:03 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:30:18 by tguillem         ###   ########.fr       */
+/*   Created: 2016/01/04 13:03:43 by tguillem          #+#    #+#             */
+/*   Updated: 2016/03/15 17:23:12 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void		ft_putwstr(wchar_t *strr)
+int			ft_printf(const char *format, ...)
 {
-	ft_putwstr_fd(strr, 1);
+	va_list		args;
+	int			result;
+
+	va_start(args, format);
+	result = internal_printf(format, &args, 0, 1);
+	va_end(args);
+	return (result);
+}
+
+int			ft_printf_fd(int fd, const char *format, ...)
+{
+	va_list		args;
+	int			result;
+
+	va_start(args, format);
+	result = internal_printf(format, &args, 0, fd);
+	va_end(args);
+	return (result);
 }

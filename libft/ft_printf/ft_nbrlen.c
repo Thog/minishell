@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_nbrlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/04 13:01:03 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:30:18 by tguillem         ###   ########.fr       */
+/*   Created: 2016/01/26 15:51:51 by tguillem          #+#    #+#             */
+/*   Updated: 2016/02/16 14:22:40 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void		ft_putwstr(wchar_t *strr)
+unsigned int	ft_printf_nbrlen(uintmax_t nbr, char *base)
 {
-	ft_putwstr_fd(strr, 1);
+	size_t			base_nbr;
+	unsigned int	i;
+
+	base_nbr = ft_strlen(base);
+	i = 0;
+	if (!nbr)
+		return (1);
+	while (nbr)
+	{
+		nbr /= base_nbr;
+		i++;
+	}
+	return (i);
 }

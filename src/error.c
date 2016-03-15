@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/04 13:01:03 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:30:18 by tguillem         ###   ########.fr       */
+/*   Created: 2016/03/15 12:45:44 by tguillem          #+#    #+#             */
+/*   Updated: 2016/03/15 18:46:08 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void		ft_putwstr(wchar_t *strr)
+void	printsignal(pid_t pid, int status)
 {
-	ft_putwstr_fd(strr, 1);
+	ft_printf_fd(2, "[%d]%*d\n", pid, 4, status);
 }
