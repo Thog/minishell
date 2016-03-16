@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 11:23:43 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:14:39 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	**minishell_split(char *line)
 	return (ft_strsplit(line, ' '));
 }
 
-int		minishell_loop(t_env *env)
+int			minishell_loop(t_env *env)
 {
 	char	*line;
 	char	**args;

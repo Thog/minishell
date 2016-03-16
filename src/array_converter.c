@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 15:41:08 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 15:43:25 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:15:02 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_array			*to_array(char **src)
 	return (root);
 }
 
-t_array		*convert_paths(char *path)
+t_array			*convert_paths(char *path)
 {
 	t_array	*result;
 	char	**paths;
@@ -55,11 +55,12 @@ char			**to_char_array(t_array *src)
 	tmp = src;
 	while (tmp)
 	{
-		tmp = tmp->next;
 		i++;
+		tmp = tmp->next;
 	}
 	if (!(result = (char **)ft_memalloc(sizeof(char **) * (i + 1))))
 		return (NULL);
+	i = 0;
 	tmp = src;
 	while (tmp)
 	{

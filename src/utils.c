@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 16:07:07 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:15:28 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			get_env(char **env, char *name)
 	return (-1);
 }
 
-t_array			*array_get(t_array *env, char *name)
+t_array		*array_get(t_array *env, char *name)
 {
 	while (env)
 	{
@@ -58,7 +58,7 @@ t_array			*array_get(t_array *env, char *name)
 	return (NULL);
 }
 
-int				char_array_length(char **array)
+int			char_array_length(char **array)
 {
 	int		result;
 
