@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 18:45:15 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/16 10:53:14 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			minishell_execute(char *name, char **args, t_env *env)
 	if (!name || !*name)
 		return (1);
 	if (!ft_strcmp(name, "exit"))
-		return (0);
+		return (minishell_buildin_exit(args, env));
 	if (!ft_strcmp(name, "cd"))
 		return (minishell_buildin_cd(args, env));
 	if (!ft_strcmp(name, "env"))

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 16:06:17 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:03:28 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ typedef struct			s_env
 {
 	t_array				*env;
 	t_array				*paths;
+	unsigned int		exit_code;
 }						t_env;
 
 int						minishell_init(t_env **env_data, char **env);
-void					minishell_loop(t_env *env);
+int						minishell_loop(t_env *env);
 int						minishell_execute(char *name, char **args, t_env *env);
 t_array					*convert_paths(char *path);
 t_array					*array_init(t_array *root, char *str);
 t_array					*array_get(t_array *env, char *name);
 int						minishell_buildin_cd(char **args, t_env *env);
 int						minishell_buildin_env(t_env *env);
+int						minishell_buildin_exit(char **args, t_env *env);
 int						get_env(char **env, char *name);
 void					printsignal(pid_t pid, int status);
 t_array					*to_array(char **src);

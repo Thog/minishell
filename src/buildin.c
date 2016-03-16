@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 18:46:28 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:03:15 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ int				minishell_buildin_env(t_env *env)
 	{
 		ft_printf("%s\n", tmp->data);
 		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int						minishell_buildin_exit(char **args, t_env *env)
+{
+	int		ac;
+
+	ac = char_array_length(args);
+	if (ac > 2)
+		ft_putstr_fd("exit: too many arguments\n", 2);
+	else
+	{
+		env->exit_code = ac == 2 ? (unsigned int)ft_atoi(args[1]) : 0;
+		return (0);
 	}
 	return (1);
 }
