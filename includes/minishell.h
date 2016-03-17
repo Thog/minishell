@@ -16,6 +16,11 @@
 # include <unistd.h>
 # include "libft.h"
 # include <stdlib.h>
+
+# ifdef linux
+# include <sys/types.h>
+# include <sys/wait.h>
+# endif
 # include <dirent.h>
 
 typedef struct			s_array
