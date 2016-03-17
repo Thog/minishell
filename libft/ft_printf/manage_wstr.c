@@ -66,5 +66,5 @@ ssize_t			ft_printf_manage_wstr(char **format, va_list *args,
 	ft_putnwstr(str, strlen, data->fd);
 	if (data->got_width && data->right_pad)
 		ft_printf_width_pad(strlen, data->width, ' ', data->fd);
-	return (data->got_width ? ft_max(strlen, data->width) : strlen);
+	return (data->got_width ? ft_max(strlen, data->width) : (ssize_t)strlen);
 }

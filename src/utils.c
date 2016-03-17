@@ -34,12 +34,13 @@ t_array		*array_init(t_array *root, char *str)
 
 int			get_env(char **env, char *name)
 {
-	int	i;
+	char	*tmp;
+	int		i;
 
 	i = 0;
 	while (*env)
 	{
-		if (ft_strstr(*env, name) != NULL)
+		if ((tmp = ft_strstr(*env, name)) && tmp == *env)
 			return (i);
 		env++;
 		i++;
