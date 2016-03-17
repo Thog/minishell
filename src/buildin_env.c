@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin.c                                          :+:      :+:    :+:   */
+/*   buildin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,48 @@
 
 #include "minishell.h"
 
-//TODO: Implement it correctly http://pubs.opengroup.org/onlinepubs/009696699/utilities/cd.html
-int				minishell_buildin_cd(char **args, t_env *env)
+static int		compute_options(void *data, char c)
 {
-	int		ac;
-	t_array	*pwd;
+	int		*info;
 
-	ac = char_array_length(args);
-	if (ac != 2)
-		ft_putstr_fd("cd: too many arguments\n", 2);
+	info = (int *)data;
+	if (*info != 0 && *info < 256)
+		return (1);
+	if (c == 'i')
+		*info = 257;
+	else if (c == 'v')
+		*info = 258;
 	else
 	{
-		pwd = array_get(env->env, "PWD");
-		if (chdir(args[1]) == 0)
-		{
-			if (pwd == NULL)
-				array_init(pwd, ft_strjoin("PWD=", args[1]));
-			else
-				pwd->data = ft_strjoin("PWD=", args[1]);
-		}
+		*info = c;
+		return (0);
 	}
 	return (1);
 }
 
-int						minishell_buildin_exit(char **args, t_env *env)
+int				minishell_buildin_env(char **args, t_env *env)
 {
+	t_array	*tmp;
 	int		ac;
+	int		data;
 
+	data = 0;
 	ac = char_array_length(args);
-	if (ac > 2)
-		ft_putstr_fd("exit: too many arguments\n", 2);
-	else
+	if (ac > 1)
 	{
-		env->exit_code = ac == 2 ? (unsigned int)ft_atoi(args[1]) : 0;
-		return (0);
+		ft_parse_args(ac, args, &data, &compute_options);
+		if (data != 0 && data < 256)
+		{
+			ft_printf_fd(2, "%s: illegal option -- %c\n", args[0], data);
+			ft_printf_fd(2, "usage: %s [-iv./] [name=value]... [utility [argument...]]\n", args[0]);
+			return (1);
+		}
+	}
+	tmp = env->env;
+	while (tmp)
+	{
+		ft_printf("%s\n", tmp->data);
+		tmp = tmp->next;
 	}
 	return (1);
 }

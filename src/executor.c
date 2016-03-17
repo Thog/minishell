@@ -59,10 +59,18 @@ static char	*find_path(char *name, t_array *paths)
 					return (result);
 				}
 			}
+			closedir(dir);
 		}
 		paths = paths->next;
 	}
 	return (ft_strdup(name));
+}
+
+void		destroy_char_array(char **array)
+{
+	while (*array && **array)
+		ft_strdel(array);
+	free(array);
 }
 
 int			minishell_execute(char *name, char **args, t_env *env)
@@ -80,7 +88,7 @@ int			minishell_execute(char *name, char **args, t_env *env)
 	if (!ft_strcmp(name, "cd"))
 		return (minishell_buildin_cd(args, env));
 	if (!ft_strcmp(name, "env"))
-		return (minishell_buildin_env(env));
+		return (minishell_buildin_env(args, env));
 	path = find_path(name, env->paths);
 	tmp_env = to_char_array(env->env);
 	result = execute(path, args, tmp_env);

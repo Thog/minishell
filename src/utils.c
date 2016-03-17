@@ -71,7 +71,7 @@ int			char_array_length(char **array)
 	return (result);
 }
 
-void	destroy_array(t_array *array)
+void		destroy_array(t_array *array)
 {
 	t_array	*to_del;
 	t_array	*tmp;

@@ -34,8 +34,8 @@ SRC = ft_memset.c ft_bzero.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
 	  ft_printf/internal_printf.c ft_printf/manage_number.c \
 	  ft_printf/manage_specials.c ft_printf/manage_str.c \
 	  ft_printf/manage_str.c ft_printf/manage_wstr.c ft_printf/manager_base.c \
-	  ft_printf/parser.c ft_printf/utils.c
-	  
+	  ft_printf/parser.c ft_printf/utils.c ft_prgm.c
+
 OBJ = $(SRC:.c=.o)
 REMOVE = $(OBJ)
 

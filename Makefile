@@ -17,7 +17,7 @@ CC = gcc
 NAME = minishell
 LIB = libft
 SRC = main.c init.c loop.c utils.c executor.c buildin.c error.c \
-	  array_converter.c
+	  array_converter.c buildin_env.c
 SRCDIR = src
 OUTDIR = out
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))

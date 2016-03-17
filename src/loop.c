@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char **wrap_str(char *str)
+static char	**wrap_str(char *str)
 {
 	char		**result;
 
@@ -23,7 +23,7 @@ static char **wrap_str(char *str)
 	return (result);
 }
 
-static char **merge_array(char **dest, char **src)
+static char	**merge_array(char **dest, char **src)
 {
 	char		**result;
 	char		**tmp;
@@ -49,17 +49,13 @@ static char **merge_array(char **dest, char **src)
 static char	**minishell_split(char *line)
 {
 	char		**result;
-	char		**tmp;
 	char		*tmp2;
 	char		*tmp3;
 
-	tmp = NULL;
-	tmp2 = ft_strchr(line, '"');
 	result = ft_strsplit(line, ' ');
-	if (tmp2 && tmp2 != line)
+	if ((tmp2 = ft_strchr(line, '"')) && tmp2 != line && *(tmp2 - 1) != '\\')
 	{
-		while (*result && **result)
-			ft_strdel(result++);
+		destroy_char_array(result);
 		tmp3 = ft_strsub(line, 0, tmp2 - line);
 		result = ft_strsplit(tmp3, ' ');
 		ft_strdel(&tmp3);
@@ -67,8 +63,11 @@ static char	**minishell_split(char *line)
 	tmp2 = line;
 	while ((tmp2 = ft_strchr(tmp2, '"')))
 	{
-		tmp2++;
-		if (!(tmp3 = ft_strchr(tmp2, '"')))
+		if ((tmp2++ + 1) && *(tmp2 - 1) == '\\')
+			continue ;
+		if (((tmp3 = ft_strchr(tmp2, '"')) && *(tmp3 - 1) == '\\'))
+			continue ;
+		else if (!(tmp3 = ft_strchr(tmp2, '"')))
 			break ;
 		result = merge_array(result, wrap_str(ft_strsub(tmp2, 0, tmp3 - tmp2)));
 	}

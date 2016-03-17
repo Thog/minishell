@@ -38,7 +38,7 @@ t_array					*convert_paths(char *path);
 t_array					*array_init(t_array *root, char *str);
 t_array					*array_get(t_array *env, char *name);
 int						minishell_buildin_cd(char **args, t_env *env);
-int						minishell_buildin_env(t_env *env);
+int						minishell_buildin_env(char **args, t_env *env);
 int						minishell_buildin_exit(char **args, t_env *env);
 int						get_env(char **env, char *name);
 void					printsignal(pid_t pid, int status);
@@ -46,4 +46,5 @@ t_array					*to_array(char **src);
 char					**to_char_array(t_array *src);
 int						char_array_length(char **array);
 void					destroy_array(t_array *array);
+void					destroy_char_array(char **array);
 #endif
