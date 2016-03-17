@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 11:03:28 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/17 09:36:46 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void					printsignal(pid_t pid, int status);
 t_array					*to_array(char **src);
 char					**to_char_array(t_array *src);
 int						char_array_length(char **array);
+void					destroy_array(t_array *array);
 #endif

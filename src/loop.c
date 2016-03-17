@@ -6,15 +6,73 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 13:14:39 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/17 09:26:20 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char **wrap_str(char *str)
+{
+	char		**result;
+
+	if (!(result = (char **)ft_memalloc(sizeof(char**) * 2)))
+		return (NULL);
+	*result = str;
+	*(result + 1) = NULL;
+	return (result);
+}
+
+static char **merge_array(char **dest, char **src)
+{
+	char		**result;
+	char		**tmp;
+	char		**tmp2;
+	char		**tmp3;
+
+	if (!(result = (char **)ft_memalloc(sizeof(char**) * (
+						char_array_length(src) + char_array_length(dest) + 1))))
+		return (NULL);
+	tmp = result;
+	tmp2 = dest;
+	tmp3 = src;
+	while (dest && *dest)
+		*tmp++ = *dest++;
+	free(tmp2);
+	while (src && *src)
+		*tmp++ = *src++;
+	free(tmp3);
+	*tmp = NULL;
+	return (result);
+}
+
 static char	**minishell_split(char *line)
 {
-	return (ft_strsplit(line, ' '));
+	char		**result;
+	char		**tmp;
+	char		*tmp2;
+	char		*tmp3;
+
+	tmp = NULL;
+	tmp2 = ft_strchr(line, '"');
+	result = ft_strsplit(line, ' ');
+	if (tmp2 && tmp2 != line)
+	{
+		while (*result && **result)
+			ft_strdel(result++);
+		tmp3 = ft_strsub(line, 0, tmp2 - line);
+		result = ft_strsplit(tmp3, ' ');
+		ft_strdel(&tmp3);
+	}
+	tmp2 = line;
+	while ((tmp2 = ft_strchr(tmp2, '"')))
+	{
+		tmp2++;
+		if (!(tmp3 = ft_strchr(tmp2, '"')))
+			break ;
+		result = merge_array(result, wrap_str(ft_strsub(tmp2, 0, tmp3 - tmp2)));
+	}
+	return (result);
 }
 
 int			minishell_loop(t_env *env)
@@ -33,9 +91,8 @@ int			minishell_loop(t_env *env)
 		args = minishell_split(line);
 		status = minishell_execute(args[0], args, env);
 		i = 0;
-		while (args[i] && *args[i])
-			free(args[i++]);
-		free(args);
+		while (*args && **args)
+			ft_strdel(args++);
 		if (status == 1)
 			ft_putstr("$> ");
 	}

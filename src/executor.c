@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 13:04:30 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/17 09:41:29 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*find_path(char *name, t_array *paths)
 		}
 		paths = paths->next;
 	}
-	return (name);
+	return (ft_strdup(name));
 }
 
 int			minishell_execute(char *name, char **args, t_env *env)
@@ -84,6 +84,7 @@ int			minishell_execute(char *name, char **args, t_env *env)
 	path = find_path(name, env->paths);
 	tmp_env = to_char_array(env->env);
 	result = execute(path, args, tmp_env);
+	ft_strdel(&path);
 	free(tmp_env);
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 13:15:28 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/17 09:36:07 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,22 @@ int			char_array_length(char **array)
 		result++;
 	}
 	return (result);
+}
+
+void	destroy_array(t_array *array)
+{
+	t_array	*to_del;
+	t_array	*tmp;
+
+	if (array)
+	{
+		tmp = array;
+		while (tmp)
+		{
+			to_del = tmp;
+			tmp = tmp->next;
+			free(to_del->data);
+			free(to_del);
+		}
+	}
 }
