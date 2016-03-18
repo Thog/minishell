@@ -12,20 +12,22 @@
 
 #include "minishell.h"
 
-static int		compute_options(void *data, char c)
+static int		compute_options(void *data, char *c)
 {
 	int		*info;
 
 	info = (int *)data;
 	if (*info != 0 && *info < 256)
 		return (1);
-	if (c == 'i')
+	if (*c == 'i')
 		*info = 257;
-	else if (c == 'v')
+	else if (*c == 'v')
 		*info = 258;
+	else if (*c == '\0')
+		*info = 260;
 	else
 	{
-		*info = c;
+		*info = *c;
 		return (0);
 	}
 	return (1);
@@ -45,7 +47,7 @@ int				minishell_buildin_env(char **args, t_env *env)
 		if (data != 0 && data < 256)
 		{
 			ft_printf_fd(2, "%s: illegal option -- %c\n", args[0], data);
-			ft_printf_fd(2, "usage: %s [-iv./] [name=value]... [utility [argument...]]\n", args[0]);
+			ft_printf_fd(2, "usage: %s [-iv] [name=value]... [utility [argument...]]\n", args[0]);
 			return (1);
 		}
 	}

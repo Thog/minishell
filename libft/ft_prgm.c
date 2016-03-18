@@ -13,14 +13,14 @@
 #include "libft.h"
 
 static int			prepare_args(char *str, void *data,
-						int (*compute_options)(void*, char))
+						int (*compute_options)(void*, char*))
 {
 	int		result;
 
 	result = 2;
 	{
-		while (*str == '-' && *(str + 1) && (result = compute_options(data,
-			*++str)))
+		while (*str == '-' && (result = compute_options(data,
+			++str)))
 			;
 		return (result == 0);
 	}
@@ -28,7 +28,7 @@ static int			prepare_args(char *str, void *data,
 }
 
 int					ft_parse_args(int ac, char **av, void *data,
-						int (*compute_options)(void*, char))
+						int (*compute_options)(void*, char*))
 {
 	int i;
 	int stop;

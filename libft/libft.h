@@ -122,5 +122,5 @@ typedef struct		s_buff
 
 int					get_next_line(int const fd, char **line);
 int					ft_parse_args(int ac, char **av, void *data,
-						int (*compute_options)(void*, char));
+						int (*compute_options)(void*, char*));
 #endif
