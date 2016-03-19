@@ -50,9 +50,11 @@ int			get_env(char **env, char *name)
 
 t_array		*array_get(t_array *env, char *name)
 {
+	char	*tmp;
+
 	while (env)
 	{
-		if (ft_strstr(env->data, name) != NULL)
+		if ((tmp = ft_strstr(env->data, name)) && tmp == env->data)
 			return (env);
 		env = env->next;
 	}

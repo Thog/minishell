@@ -38,7 +38,7 @@ int				minishell_buildin_cd(char **args, t_env *env)
 		else
 			path = args[1];
 		tmp = array_get(env->env, "PWD");
-		if (chdir(path) == 0)
+		if (!chdir(path))
 		{
 			if (!tmp)
 			{
