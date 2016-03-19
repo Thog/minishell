@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/17 09:36:46 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/19 14:54:02 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include <unistd.h>
 # include "libft.h"
 # include <stdlib.h>
+# include <dirent.h>
 
 # ifdef linux
-# include <sys/types.h>
-# include <sys/wait.h>
+#  include <sys/types.h>
+#  include <sys/wait.h>
 # endif
-# include <dirent.h>
 
 typedef struct			s_array
 {

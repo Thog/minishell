@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/17 09:41:29 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/19 14:30:30 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,12 @@ int					ft_parse_args(int ac, char **av, void *data,
 	while (i < ac && !stop)
 		stop = prepare_args(av[i++], data, compute_options);
 	return (i);
+}
+
+int					ft_usage(char *prg_name, char *usage, char illegal_char)
+{
+	if (illegal_char)
+		ft_printf_fd(2, "%s: illegal option -- %c\n", prg_name, illegal_char);
+	ft_printf_fd(2, "usage: %s %s\n", prg_name, usage);
+	return (1);
 }

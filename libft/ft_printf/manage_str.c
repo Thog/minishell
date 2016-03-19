@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 16:01:43 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:50:44 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/19 14:40:38 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ ssize_t	ft_printf_manage_char(char **format, va_list *args, t_data *data)
 ssize_t	ft_printf_manage_str(char **format, va_list *args, t_data *data)
 {
 	char	*str;
-	size_t	strlen;
+	size_t	len;
 
 	if (data->length == 2)
 		return (ft_printf_manage_wstr(format, args, data));
@@ -67,14 +67,14 @@ ssize_t	ft_printf_manage_str(char **format, va_list *args, t_data *data)
 		str = va_arg(*args, char*);
 		if (!str)
 			str = "(null)";
-		strlen = data->got_accuracy ? (size_t)(ft_min(ft_strlen(str),
+		len = data->got_accuracy ? (size_t)(ft_min(ft_strlen(str),
 					data->accuracy)) : ft_strlen(str);
 		if (data->got_width && !data->right_pad)
-			ft_printf_width_pad(strlen, data->width, data->zero_pad ?
+			ft_printf_width_pad(len, data->width, data->zero_pad ?
 					'0' : ' ', data->fd);
-		write(data->fd, str, strlen);
+		write(data->fd, str, len);
 		if (data->got_width && data->right_pad)
-			ft_printf_width_pad(strlen, data->width, ' ', data->fd);
-		return (data->got_width ? ft_max(strlen, data->width) : (ssize_t)strlen);
+			ft_printf_width_pad(len, data->width, ' ', data->fd);
+		return (data->got_width ? ft_max(len, data->width) : (ssize_t)len);
 	}
 }

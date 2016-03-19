@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 13:13:42 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/19 14:34:04 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ int				minishell_buildin_env(char **args, t_env *env)
 	{
 		ft_parse_args(ac, args, &data, &compute_options);
 		if (data != 0 && data < 256)
-		{
-			ft_printf_fd(2, "%s: illegal option -- %c\n", args[0], data);
-			ft_printf_fd(2, "usage: %s [-iv] [name=value]... [utility [argument...]]\n", args[0]);
-			return (1);
-		}
+			return (ft_usage(args[0],
+				"[-iv] [name=value]... [utility [argument...]]", (char)data));
 	}
 	tmp = env->env;
 	while (tmp)
