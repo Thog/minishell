@@ -27,7 +27,7 @@ int				minishell_buildin_cd(char **args, t_env *env)
 	{
 		if (ac == 1)
 		{
-			tmp = array_get(env->env, "HOME");
+			tmp = array_get(env->env, "HOME=");
 			if (tmp == NULL)
 			{
 				ft_printf_fd(2, "cd: HOME not set\n");
@@ -37,7 +37,7 @@ int				minishell_buildin_cd(char **args, t_env *env)
 		}
 		else
 			path = args[1];
-		tmp = array_get(env->env, "PWD");
+		tmp = array_get(env->env, "PWD=");
 		if (!chdir(path))
 		{
 			if (!tmp)

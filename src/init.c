@@ -17,7 +17,7 @@ int		minishell_init(t_env **env_data, char **env)
 	if (!(*env_data = (t_env*)malloc(sizeof(env_data))))
 		return (-1);
 	(*env_data)->env = to_array(env);
-	(*env_data)->paths = convert_paths(env[get_env(env, "PATH")]);
+	(*env_data)->paths = convert_paths(env[get_env(env, "PATH=")]);
 	(*env_data)->exit_code = 0;
 	return (0);
 }
