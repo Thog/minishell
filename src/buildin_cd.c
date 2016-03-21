@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/21 18:46:03 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/21 18:52:23 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int				minishell_buildin_cd(char **args, t_env *env)
 			if (old_path)
 				set_env(env, "OLDPWD=", old_path, 1);
 		}
+		else if (path && tmp == -1 && access(path, F_OK) == -1)
+			ft_printf_fd(2, "cd: no such file or directory: %s\n", path);
 		else if (tmp == -1)
 			ft_printf_fd(2, "cd: permission denied: %s\n", path);
 		ft_strdel(&params);
