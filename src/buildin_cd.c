@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/21 15:10:06 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/21 18:46:03 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int		compute_options(void *data, char *c)
 		return (0);
 	return (1);
 }
-static void		set_env(t_env *env, char *key, char *value)
+
+static void		set_env(t_env *env, char *key, char *value, int free_value)
 {
 	t_array		*tmp;
 
-	tmp = array_get(env->env, key);
-	if (!tmp)
+	if (!(tmp = array_get(env->env, key)))
 	{
 		tmp = array_init(env->env, ft_strjoin(key, value));
 		if (!env->env)
@@ -36,6 +36,8 @@ static void		set_env(t_env *env, char *key, char *value)
 	}
 	else
 		tmp->data = ft_strjoin(key, value);
+	if (free_value)
+		ft_strdel(&value);
 }
 
 static char		*get_oldpwd(t_env *env)
@@ -58,54 +60,45 @@ static char		*getpwd(char *str, char *params, t_env *env)
 	if (!str)
 	{
 		if (!(tmp = array_get(env->env, "HOME=")))
-		{
-			ft_printf_fd(2, "cd: HOME not set\n");
-			return (NULL);
-		}
+			return (ft_error_return("cd: HOME not set\n", NULL));
 		path = tmp->data + 5;
 	}
 	else
 	{
+		path = str;
 		if (*params == 1)
 		{
 			if (!(tmp = array_get(env->env, "OLDPWD=")))
-			{
-				ft_printf_fd(2, "cd: OLDPWD not set\n");
-				return (NULL);
-			}
+				return (ft_error_return("cd: OLDPWD not set\n", NULL));
 			path = tmp->data + 7;
 		}
-		else
-			path = str;
 	}
 	return (path);
 }
 
-//TODO: Implement it correctly http://pubs.opengroup.org/onlinepubs/009696699/utilities/cd.html
 int				minishell_buildin_cd(char **args, t_env *env)
 {
-	int		ac;
+	int		tmp;
 	char	*old_path;
 	char	*path;
 	char	*params;
 
-	if ((ac = char_array_length(args)) > 2)
+	if ((tmp = char_array_length(args)) > 2)
 		ft_putstr_fd("cd: too many arguments\n", 2);
 	else
 	{
 		params = ft_strnew(3);
-		ft_parse_args(ac, args, params, &compute_options);
+		ft_parse_args(tmp, args, params, &compute_options);
 		old_path = get_oldpwd(env);
-		path = getpwd(ac == 1 ? NULL : args[1], params, env);
-		if (path && !chdir(path))
+		path = getpwd(tmp == 1 ? NULL : args[1], params, env);
+		if (path && !(tmp = access(path, X_OK)) && !chdir(path))
 		{
-			set_env(env, "PWD=", path);
+			set_env(env, "PWD=", path, 0);
 			if (old_path)
-			{
-				set_env(env, "OLDPWD=", old_path);
-				ft_strdel(&old_path);
-			}
+				set_env(env, "OLDPWD=", old_path, 1);
 		}
+		else if (tmp == -1)
+			ft_printf_fd(2, "cd: permission denied: %s\n", path);
 		ft_strdel(&params);
 	}
 	return (1);

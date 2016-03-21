@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/19 14:30:30 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/21 18:45:24 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,10 @@ int					ft_usage(char *prg_name, char *usage, char illegal_char)
 		ft_printf_fd(2, "%s: illegal option -- %c\n", prg_name, illegal_char);
 	ft_printf_fd(2, "usage: %s %s\n", prg_name, usage);
 	return (1);
+}
+
+char				*ft_error_return(char *str, char *code)
+{
+	ft_putstr_fd(str, 2);
+	return (code);
 }
