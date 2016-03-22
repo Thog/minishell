@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/21 18:52:23 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/22 08:34:02 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ static int		compute_options(void *data, char *c)
 	else
 		return (0);
 	return (1);
-}
-
-static void		set_env(t_env *env, char *key, char *value, int free_value)
-{
-	t_array		*tmp;
-
-	if (!(tmp = array_get(env->env, key)))
-	{
-		tmp = array_init(env->env, ft_strjoin(key, value));
-		if (!env->env)
-			env->env = tmp;
-	}
-	else
-		tmp->data = ft_strjoin(key, value);
-	if (free_value)
-		ft_strdel(&value);
 }
 
 static char		*get_oldpwd(t_env *env)
@@ -79,7 +63,7 @@ static char		*getpwd(char *str, char *params, t_env *env)
 int				minishell_buildin_cd(char **args, t_env *env)
 {
 	int		tmp;
-	char	*old_path;
+	char	*tmp2;
 	char	*path;
 	char	*params;
 
@@ -89,18 +73,17 @@ int				minishell_buildin_cd(char **args, t_env *env)
 	{
 		params = ft_strnew(3);
 		ft_parse_args(tmp, args, params, &compute_options);
-		old_path = get_oldpwd(env);
+		tmp2 = get_oldpwd(env);
 		path = getpwd(tmp == 1 ? NULL : args[1], params, env);
-		if (path && !(tmp = access(path, X_OK)) && !chdir(path))
+		tmp = check_access(path);
+		if (path && !tmp && !chdir(path))
 		{
 			set_env(env, "PWD=", path, 0);
-			if (old_path)
-				set_env(env, "OLDPWD=", old_path, 1);
+			set_env(env, "OLDPWD=", tmp2, 1);
 		}
-		else if (path && tmp == -1 && access(path, F_OK) == -1)
-			ft_printf_fd(2, "cd: no such file or directory: %s\n", path);
-		else if (tmp == -1)
-			ft_printf_fd(2, "cd: permission denied: %s\n", path);
+		else if (path && tmp && (tmp2 = tmp == 2 ? "no such file or directory" :
+					"permission denied"))
+			ft_printf_fd(2, "cd: %s: %s\n", tmp2, path);
 		ft_strdel(&params);
 	}
 	return (1);

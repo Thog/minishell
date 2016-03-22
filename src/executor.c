@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/17 09:41:29 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/22 09:39:24 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,26 @@ static int	execute(char *name, char **args, char **env)
 	return (1);
 }
 
-static char	*find_path(char *name, t_array *paths)
+static char	*compute_path(char *dir, char *name)
 {
-	DIR				*dir;
-	struct dirent	*tmp;
 	char			*tmp2;
 	char			*result;
 
+	tmp2 = ft_strcmp(dir, "/") ? ft_strjoin(dir, "/") : ft_strdup("/");
+	result = ft_strjoin(tmp2, name);
+	if (access(result, X_OK) == -1)
+		ft_strdel(&result);
+	ft_strdel(&tmp2);
+	return (result);
+}
+
+static char	*find_path(char *name, t_array *paths, int *info)
+{
+	DIR				*dir;
+	struct dirent	*tmp;
+	char			*result;
+
+	*info = 0;
 	while (paths)
 	{
 		if ((dir = opendir(paths->data)))
@@ -53,17 +66,16 @@ static char	*find_path(char *name, t_array *paths)
 			{
 				if (!ft_strcmp(tmp->d_name, name))
 				{
-					tmp2 = ft_strjoin(paths->data, "/");
-					result = ft_strjoin(tmp2, name);
-					ft_strdel(&tmp2);
-					return (result);
+					if ((result = compute_path(paths->data, name)))
+						return (result);
+					*info = 1;
 				}
 			}
 			closedir(dir);
 		}
 		paths = paths->next;
 	}
-	return (ft_strdup(name));
+	return (name);
 }
 
 void		destroy_char_array(char **array)
@@ -77,7 +89,7 @@ int			minishell_execute(char *name, char **args, t_env *env)
 {
 	char	*path;
 	char	**tmp_env;
-	int		result;
+	int		info;
 
 	path = NULL;
 	tmp_env = NULL;
@@ -89,10 +101,15 @@ int			minishell_execute(char *name, char **args, t_env *env)
 		return (minishell_buildin_cd(args, env));
 	if (!ft_strcmp(name, "env"))
 		return (minishell_buildin_env(args, env));
-	path = find_path(name, env->paths);
-	tmp_env = to_char_array(env->env);
-	result = execute(path, args, tmp_env);
-	ft_strdel(&path);
-	free(tmp_env);
-	return (result);
+	if (!ft_strcmp((path = find_path(name, env->paths, &info)), name))
+		ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
+			"command not found", name);
+	else
+	{
+		tmp_env = to_char_array(env->env);
+		execute(path, args, tmp_env);
+		ft_strdel(&path);
+		free(tmp_env);
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/11 14:02:41 by tguillem          #+#    #+#             */
-/*   Updated: 2016/02/16 11:36:58 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/22 09:42:46 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_buff	*init_buff(t_buff *before, int fd)
 	t_buff		*result;
 
 	if (!(result = (t_buff*)ft_memalloc(sizeof(t_buff))) ||
-			!(result->buff = ft_strnew(0)))
+			!(result->buff = ft_strnew(1)))
 		return (NULL);
 	result->fd = fd;
 	result->next = NULL;

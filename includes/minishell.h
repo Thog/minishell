@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/19 14:54:02 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/22 08:23:05 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ int						minishell_buildin_cd(char **args, t_env *env);
 int						minishell_buildin_env(char **args, t_env *env);
 int						minishell_buildin_exit(char **args, t_env *env);
 int						get_env(char **env, char *name);
+void					set_env(t_env *env, char *key, char *value,
+								int free_value);
 void					printsignal(pid_t pid, int status);
 t_array					*to_array(char **src);
 char					**to_char_array(t_array *src);
 int						char_array_length(char **array);
 void					destroy_array(t_array *array);
 void					destroy_char_array(char **array);
+int						check_access(char *path);
 #endif
