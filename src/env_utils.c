@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:09:36 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 15:00:36 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:37:05 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ int			get_env(char **env, char *name)
 	return (-1);
 }
 
+void		rebuild_paths(t_env *env)
+{
+	t_array		*path;
+
+	path = array_get(env->env, "PATH=");
+	if (env->paths)
+		destroy_array(env->paths);
+	if (path)
+		env->paths = convert_paths(path->data);
+	else
+		env->paths = NULL;
+}
+
 void		set_env(t_env *env, char *key, char *value, int free_value)
 {
 	t_array		*tmp;
@@ -43,15 +56,17 @@ void		set_env(t_env *env, char *key, char *value, int free_value)
 		tmp->data = ft_strjoin(key, value);
 	if (free_value)
 		ft_strdel(&value);
+	if (!ft_strcmp(key, "PATH="))
+		rebuild_paths(env);
 }
 
-void		remove_env(t_array **env, char *key)
+void		remove_env(t_env *env, char *key)
 {
 	t_array	*prev;
 	t_array	*tmp;
 	int		size;
 
-	tmp = *env;
+	tmp = env->env;
 	prev = NULL;
 	size = ft_strlen(key);
 	while (tmp)
@@ -61,9 +76,11 @@ void		remove_env(t_array **env, char *key)
 			if (prev)
 				prev->next = tmp->next;
 			else
-				*env = tmp->next;
+				env->env = tmp->next;
 			free(tmp->data);
 			free(tmp);
+			if (!ft_strcmp(key, "PATH="))
+				rebuild_paths(env);
 			break ;
 		}
 		prev = tmp;

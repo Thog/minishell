@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 15:15:33 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:38:19 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int				minishell_buildin_unsetenv(char **args, t_env *env)
 	{
 		key = ft_strjoin(args[1], "=");
 		if (array_get(env->env, key))
-			remove_env(&(env->env), key);
+			remove_env(env, key);
 		ft_strdel(&key);
 	}
 	else
