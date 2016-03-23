@@ -6,7 +6,7 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/04 11:53:01 by tguillem          #+#    #+#              #
-#    Updated: 2016/03/22 08:23:27 by tguillem         ###   ########.fr        #
+#    Updated: 2016/03/23 15:47:04 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ SRCS = $(addprefix $(SRCDIR)/, $(SRC))
 OBJ = $(addprefix $(OUTDIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
-$(NAME): mkOut $(OBJ)
+$(NAME): $(OUTDIR) $(OBJ)
 	(cd $(LIB) && $(MAKE))
 	$(CC) -o $(NAME) $(CFLAGS) -I./libft -L./libft $(OBJ) $(PRGFLAGS)
 $(OUTDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) -I $(LIB) -o $@ -c $? $(CFLAGS)
 
-mkOut:
+$(OUTDIR):
 	@mkdir -p $(OUTDIR)
 
 clean:

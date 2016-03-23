@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:09:36 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/22 08:23:49 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:00:36 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,42 @@ void		set_env(t_env *env, char *key, char *value, int free_value)
 		tmp->data = ft_strjoin(key, value);
 	if (free_value)
 		ft_strdel(&value);
+}
+
+void		remove_env(t_array **env, char *key)
+{
+	t_array	*prev;
+	t_array	*tmp;
+	int		size;
+
+	tmp = *env;
+	prev = NULL;
+	size = ft_strlen(key);
+	while (tmp)
+	{
+		if (!ft_strncmp(tmp->data, key, size))
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				*env = tmp->next;
+			free(tmp->data);
+			free(tmp);
+			break ;
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}
+}
+
+void		print_env(t_env *env)
+{
+	t_array	*tmp;
+
+	tmp = env->env;
+	while (tmp)
+	{
+		ft_printf("%s\n", tmp->data);
+		tmp = tmp->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/22 14:14:11 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:09:44 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int			minishell_loop(t_env *env)
 
 	line = ft_strnew(1);
 	status = 1;
+	sig = 1;
 	ft_putstr("$> ");
 	while (status == 1 && get_next_line(0, &line) == 1)
 	{
