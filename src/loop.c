@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 15:09:44 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:26:12 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	**minishell_split(char *line)
 	char		*tmp2;
 	char		*tmp3;
 
-	result = ft_strsplit(line, ' ');
+	result = ft_strsplitcmp(line, &ft_isblank);
 	if ((tmp2 = ft_strchr(line, '"')) && tmp2 != line && *(tmp2 - 1) != '\\')
 	{
 		destroy_char_array(result);
