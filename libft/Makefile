@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tguillem <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/07/21 12:17:37 by tguillem          #+#    #+#              #
-#    Updated: 2016/03/15 17:31:02 by tguillem         ###   ########.fr        #
+#    Updated: 2016/03/22 15:44:53 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC = ft_memset.c ft_bzero.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
 	  ft_printf/internal_printf.c ft_printf/manage_number.c \
 	  ft_printf/manage_specials.c ft_printf/manage_str.c \
 	  ft_printf/manage_str.c ft_printf/manage_wstr.c ft_printf/manager_base.c \
-	  ft_printf/parser.c ft_printf/utils.c ft_prgm.c
+	  ft_printf/parser.c ft_printf/utils.c ft_prgm.c ft_path.c
 
 OBJ = $(SRC:.c=.o)
 REMOVE = $(OBJ)
