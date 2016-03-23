@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/22 08:23:05 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/22 13:47:38 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ typedef struct			s_env
 	unsigned int		exit_code;
 }						t_env;
 
+extern pid_t			*g_child;
 int						minishell_init(t_env **env_data, char **env);
 int						minishell_loop(t_env *env);
-int						minishell_execute(char *name, char **args, t_env *env);
+int						minishell_execute(char *name, char **args, t_env *env,
+								int *sig);
 t_array					*convert_paths(char *path);
 t_array					*array_init(t_array *root, char *str);
 t_array					*array_get(t_array *env, char *name);

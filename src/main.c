@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/17 09:37:26 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/22 13:41:55 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	env_data = NULL;
-	if (minishell_init(&env_data, env) == -1)
+	if (minishell_init(&env_data, env))
 		return (1);
 	result = minishell_loop(env_data);
 	destroy_array(env_data->env);
