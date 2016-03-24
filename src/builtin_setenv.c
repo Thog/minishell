@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 08:07:26 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:32:55 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int				minishell_builtin_setenv(char **args, t_env *env)
 
 	ac = char_array_length(args);
 	if (ac == 1)
-		print_env(env);
+		print_env(env->env);
 	else if (ac < 4)
 	{
 		key = ft_strjoin(args[1], "=");

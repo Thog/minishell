@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 09:51:12 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 13:41:18 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void			post_execute(char ***environ, t_array *env)
 	ft_memset(g_child, 0, sizeof(g_child));
 }
 
-static int			execute(char *name, char **args, t_array *env)
+int					execute(char *name, char **args, t_array *env)
 {
 	pid_t		parent;
 	int			status;
@@ -48,7 +48,7 @@ static int			execute(char *name, char **args, t_array *env)
 	return (!WIFSIGNALED(status));
 }
 
-static t_array		*compute_env(t_env *env, char **args, int *info)
+t_array			*compute_env(t_array *env, char **args, int *info)
 {
 	t_array		*result;
 	int			i;
@@ -57,7 +57,7 @@ static t_array		*compute_env(t_env *env, char **args, int *info)
 
 	i = 0;
 	length = char_array_length(args);
-	result = array_dup(env->env);
+	result = array_dup(env);
 	while (i < length)
 	{
 		if (!ft_strchr(args[i], '='))
@@ -70,6 +70,17 @@ static t_array		*compute_env(t_env *env, char **args, int *info)
 	return (result);
 }
 
+static int			builtins_execute(char **args, t_env *env)
+{
+	if (!ft_strcmp(*args, "exit"))
+		return (minishell_builtin_exit(args, env));
+	if (!ft_strcmp(*args, "cd"))
+		return (minishell_builtin_cd(args, env));
+	if (minishell_builtin_env_dispatcher(args, env))
+		return (1);
+	return (0);
+}
+
 int					minishell_execute(char **args, t_env *env, int *sig)
 {
 	char	*path;
@@ -80,19 +91,16 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 	path = NULL;
 	if (!*args || !ft_isprint(**args))
 		return (1);
-	tmp_array = compute_env(env, args, &i);
-	if (!ft_strcmp(args[i], "exit"))
-		return (minishell_builtin_exit(args, env));
-	if (!ft_strcmp(args[i], "cd"))
-		return (minishell_builtin_cd(args + i, env));
-	if (minishell_builtin_env_dispatcher(args + i, env))
-		return (1);
-	if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]) &&
-			info)
-		ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
-			"command not found", args[i]);
-	else
-		*sig = execute(path, args + i, tmp_array);
+	tmp_array = compute_env(env->env, args, &i);
+	if (i != 0 || !builtins_execute(args, env))
+	{
+		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
+				&& info)
+			ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
+				"command not found", args[i]);
+		else
+			*sig = execute(path, args + i, tmp_array);
+	}
 	ft_strdel(&path);
 	return (1);
 }

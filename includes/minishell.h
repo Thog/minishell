@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 09:01:10 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 10:32:34 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void					set_env_array(t_array **env, char *key, char *value,
 								int flag);
 void					remove_env(t_env *env, char *key);
 void					printsignal(pid_t pid, int status);
-void					print_env(t_env *env);
+void					print_env(t_array *env);
 t_array					*to_array(char **src);
 char					**to_char_array(t_array *src);
 int						char_array_length(char **array);
@@ -67,4 +67,6 @@ void					destroy_array(t_array *array);
 void					destroy_char_array(char **array);
 int						check_access(char *path);
 void					rebuild_paths(t_env *env);
+t_array					*compute_env(t_array *env, char **args, int *info);
+int						execute(char *name, char **args, t_array *env);
 #endif

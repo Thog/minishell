@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:09:36 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 09:40:15 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:26:16 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		set_env_array(t_array **array, char *key, char *value, int flag)
 	if (!(tmp = array_get(*array, key)))
 	{
 		tmp = array_init(*array, ft_strjoin(key, value));
-		if (!array)
+		if (!*array)
 			*array = tmp;
 	}
 	else
@@ -80,11 +80,11 @@ void		remove_env(t_env *env, char *key)
 	}
 }
 
-void		print_env(t_env *env)
+void		print_env(t_array *env)
 {
 	t_array	*tmp;
 
-	tmp = env->env;
+	tmp = env;
 	while (tmp)
 	{
 		ft_printf("%s\n", tmp->data);
