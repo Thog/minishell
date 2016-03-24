@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:41:43 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:11:18 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 	if (!*args || !ft_isprint(**args))
 		return (1);
 	tmp_array = compute_env(env->env, args, &i);
-	if (i != 0 || !builtins_execute(args, env))
+	if ((i != 0 && args[i]) || (i == 0 && !builtins_execute(args, env)))
 	{
 		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
 				&& info)
@@ -100,7 +100,13 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 				"command not found", args[i]);
 		else
 			*sig = execute(path, args + i, tmp_array);
+		ft_strdel(&path);
 	}
-	ft_strdel(&path);
+	else if (i != 0 && !args[i])
+	{
+		destroy_array(env->env);
+		env->env = tmp_array;
+		rebuild_paths(env);
+	}
 	return (1);
 }

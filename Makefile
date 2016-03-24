@@ -6,7 +6,7 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/04 11:53:01 by tguillem          #+#    #+#              #
-#    Updated: 2016/03/24 08:46:49 by tguillem         ###   ########.fr        #
+#    Updated: 2016/03/24 11:52:08 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ OBJ = $(addprefix $(OUTDIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OUTDIR) $(OBJ)
-	(cd $(LIB) && $(MAKE))
-	$(CC) -o $(NAME) $(CFLAGS) -I./libft -L./libft $(OBJ) $(PRGFLAGS)
+	@(cd $(LIB) && $(MAKE))
+	@$(CC) -o $(NAME) $(CFLAGS) -I./libft -L./libft $(OBJ) $(PRGFLAGS)
 $(OUTDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) -I $(LIB) -o $@ -c $? $(CFLAGS)
+	@$(CC) -I $(LIB) -o $@ -c $? $(CFLAGS)
 
 $(OUTDIR):
 	@mkdir -p $(OUTDIR)
