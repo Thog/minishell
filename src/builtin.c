@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin.c                                          :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/16 13:13:42 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 07:38:44 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int						minishell_buildin_exit(char **args, t_env *env)
+int						minishell_builtin_exit(char **args, t_env *env)
 {
 	int		ac;
 
@@ -27,7 +27,7 @@ int						minishell_buildin_exit(char **args, t_env *env)
 	return (1);
 }
 
-int						minishell_buildin_pwd(void)
+int						minishell_builtin_pwd(void)
 {
 	return (1);
 }

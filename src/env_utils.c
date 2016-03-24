@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:09:36 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 17:37:05 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:40:15 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,25 @@ int			get_env(char **env, char *name)
 	return (-1);
 }
 
-void		rebuild_paths(t_env *env)
-{
-	t_array		*path;
-
-	path = array_get(env->env, "PATH=");
-	if (env->paths)
-		destroy_array(env->paths);
-	if (path)
-		env->paths = convert_paths(path->data);
-	else
-		env->paths = NULL;
-}
-
-void		set_env(t_env *env, char *key, char *value, int free_value)
+void		set_env_array(t_array **array, char *key, char *value, int flag)
 {
 	t_array		*tmp;
 
-	if (!(tmp = array_get(env->env, key)))
+	if (!(tmp = array_get(*array, key)))
 	{
-		tmp = array_init(env->env, ft_strjoin(key, value));
-		if (!env->env)
-			env->env = tmp;
+		tmp = array_init(*array, ft_strjoin(key, value));
+		if (!array)
+			*array = tmp;
 	}
 	else
 		tmp->data = ft_strjoin(key, value);
-	if (free_value)
+	if (flag == 1)
 		ft_strdel(&value);
+}
+
+void		set_env(t_env *env, char *key, char *value, int flag)
+{
+	set_env_array(&env->env, key, value, flag);
 	if (!ft_strcmp(key, "PATH="))
 		rebuild_paths(env);
 }

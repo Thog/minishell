@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 16:26:12 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 08:13:21 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int			minishell_loop(t_env *env)
 	while (status == 1 && get_next_line(0, &line) == 1)
 	{
 		args = minishell_split(line);
-		status = minishell_execute(args[0], args, env, &sig);
+		status = minishell_execute(args, env, &sig);
 		while (*args && **args)
 			ft_strdel(args++);
 		if (!sig)

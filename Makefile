@@ -6,7 +6,7 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/04 11:53:01 by tguillem          #+#    #+#              #
-#    Updated: 2016/03/23 15:47:04 by tguillem         ###   ########.fr        #
+#    Updated: 2016/03/24 08:46:49 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ CC = gcc
 
 NAME = minishell
 LIB = libft
-SRC = main.c init.c loop.c array_utils.c executor.c buildin.c error.c \
-	  array_converter.c buildin_env.c buildin_cd.c utils.c env_utils.c
+SRC = main.c init.c loop.c array_utils.c executor.c builtin.c error.c \
+	  array_converter.c builtin_setenv.c builtin_cd.c builtin_env.c utils.c \
+	  env_utils.c path_utils.c
 SRCDIR = src
 OUTDIR = out
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))

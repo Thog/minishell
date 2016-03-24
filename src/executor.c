@@ -6,21 +6,30 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 15:15:24 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 09:51:12 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	execute(char *name, char **args, char **env)
+static void			post_execute(char ***environ, t_array *env)
+{
+	free(*environ);
+	destroy_array(env);
+	ft_memset(g_child, 0, sizeof(g_child));
+}
+
+static int			execute(char *name, char **args, t_array *env)
 {
 	pid_t		parent;
 	int			status;
+	char		**environ;
 
+	environ = to_char_array(env);
 	parent = fork();
 	if (parent == 0)
 	{
-		execve(name, args, env);
+		execve(name, args, environ);
 		ft_printf_fd(2, "minishell: command not found: %s\n", name);
 		exit(1);
 	}
@@ -35,75 +44,55 @@ static int	execute(char *name, char **args, char **env)
 		if (WIFSIGNALED(status))
 			printsignal(*g_child, status);
 	}
-	ft_memset(g_child, 0, sizeof(g_child));
+	post_execute(&environ, env);
 	return (!WIFSIGNALED(status));
 }
 
-static char	*compute_path(char *dir, char *name)
+static t_array		*compute_env(t_env *env, char **args, int *info)
 {
-	char			*tmp2;
-	char			*result;
+	t_array		*result;
+	int			i;
+	int			length;
+	char		*tmp;
 
-	tmp2 = ft_strcmp(dir, "/") ? ft_strjoin(dir, "/") : ft_strdup("/");
-	result = ft_strjoin(tmp2, name);
-	if (access(result, X_OK) == -1)
-		ft_strdel(&result);
-	ft_strdel(&tmp2);
+	i = 0;
+	length = char_array_length(args);
+	result = array_dup(env->env);
+	while (i < length)
+	{
+		if (!ft_strchr(args[i], '='))
+			break ;
+		tmp = ft_strsub(args[i], 0, ft_strchr(args[i], '=') - args[i] + 1);
+		set_env_array(&result, tmp, ft_strchr(args[i], '=') + 1, 0);
+		i++;
+	}
+	*info = i;
 	return (result);
 }
 
-static char	*find_path(char *name, t_array *paths, int *info)
-{
-	DIR				*dir;
-	struct dirent	*tmp;
-	char			*result;
-
-	*info = 0;
-	while (paths)
-	{
-		if ((dir = opendir(paths->data)))
-		{
-			while ((tmp = readdir(dir)))
-			{
-				if (!ft_strcmp(tmp->d_name, name))
-				{
-					if ((result = compute_path(paths->data, name)))
-						return (result);
-					*info = 1;
-				}
-			}
-			closedir(dir);
-		}
-		paths = paths->next;
-	}
-	return (ft_strdup(name));
-}
-
-int			minishell_execute(char *name, char **args, t_env *env, int *sig)
+int					minishell_execute(char **args, t_env *env, int *sig)
 {
 	char	*path;
-	char	**tmp_env;
+	t_array	*tmp_array;
 	int		info;
+	int		i;
 
 	path = NULL;
-	tmp_env = NULL;
-	if (!name || !*name)
+	if (!*args || !ft_isprint(**args))
 		return (1);
-	if (!ft_strcmp(name, "exit"))
-		return (minishell_buildin_exit(args, env));
-	if (!ft_strcmp(name, "cd"))
-		return (minishell_buildin_cd(args, env));
-	if (minishell_buildin_env(args, env))
+	tmp_array = compute_env(env, args, &i);
+	if (!ft_strcmp(args[i], "exit"))
+		return (minishell_builtin_exit(args, env));
+	if (!ft_strcmp(args[i], "cd"))
+		return (minishell_builtin_cd(args + i, env));
+	if (minishell_builtin_env_dispatcher(args + i, env))
 		return (1);
-	if (!ft_strcmp((path = find_path(name, env->paths, &info)), name) && info)
+	if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]) &&
+			info)
 		ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
-			"command not found", name);
+			"command not found", args[i]);
 	else
-	{
-		tmp_env = to_char_array(env->env);
-		*sig = execute(path, args, tmp_env);
-		free(tmp_env);
-	}
+		*sig = execute(path, args + i, tmp_array);
 	ft_strdel(&path);
 	return (1);
 }

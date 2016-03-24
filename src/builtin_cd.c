@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buildin_cd.c                                       :+:      :+:    :+:   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/22 08:34:02 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 07:39:04 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char		*getpwd(char *str, char *params, t_env *env)
 	return (path);
 }
 
-int				minishell_buildin_cd(char **args, t_env *env)
+int				minishell_builtin_cd(char **args, t_env *env)
 {
 	int		tmp;
 	char	*tmp2;
