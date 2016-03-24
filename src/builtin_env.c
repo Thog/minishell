@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:51:13 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:50:18 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:07:42 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		compute_options(void *data, char *c)
 
 	info = (int *)data;
 	if (*info != 0 && *info < 256)
-		return (1);
+		return (0);
 	if (*c == 'i')
 		*info = 257;
 	else if (*c == 'v' || (*c == '\0' && (*(c - 1) == '-')))
@@ -42,19 +42,21 @@ static void		execute_array(char **args, t_env *env, int *data)
 	int			i;
 	t_array		*tmp_array;
 
-	tmp_array = compute_env(*data == 257 ? NULL : env->env, args, &i);
-	if (args[i])
+	tmp_array = compute_env(*data == 257 ? NULL : env->env, args, &i, data[1]);
+	if (args[i] && (i != 0 || *args[i] != '-'))
 	{
-		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
-				&& info)
-			ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
+		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]))
+			ft_printf_fd(2, "env: %s: %s\n", info ? "permission denied" :
 					"command not found", args[i]);
 		else
 			execute(path, args + i, tmp_array);
 		ft_strdel(&path);
 	}
 	else
+	{
 		print_env(tmp_array);
+		destroy_array(tmp_array);
+	}
 }
 
 int				minishell_builtin_env(char **args, t_env *env)
@@ -71,8 +73,10 @@ int				minishell_builtin_env(char **args, t_env *env)
 	if (ac > 1)
 	{
 		i = ft_parse_args(ac, args, &data, &compute_options) - 1;
+		i = !i ? 1 : i;
 		if (data[0] != 0 && data[0] < 256)
-			return (ft_usage(args[0], usage, (char)data));
+			return (ft_usage(args[0], usage, (char)*data));
+		data[1] = data[1] != 0 ? 2 : 0;
 		if (args[i])
 			execute_array(args + i, env, data);
 		else

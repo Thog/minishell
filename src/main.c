@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/22 13:41:55 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:34:39 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	main(int ac, char **av, char **env)
 	if (minishell_init(&env_data, env))
 		return (1);
 	result = minishell_loop(env_data);
-	destroy_array(env_data->env);
-	destroy_array(env_data->paths);
-	free(env_data);
+	minishell_cleanup(env_data, 1);
 	return (result);
 }

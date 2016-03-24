@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:38 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/23 17:10:58 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:38:47 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,14 @@ int		minishell_init(t_env **env_data, char **env)
 	(*env_data)->paths = convert_paths(env[get_env(env, "PATH=")]);
 	(*env_data)->exit_code = 0;
 	return (signal(SIGINT, signal_handler) == SIG_ERR);
+}
+
+int		minishell_cleanup(t_env *env, int shutdown)
+{
+	destroy_array(env->env);
+	destroy_array(env->paths);
+	env->paths = NULL;
+	if (shutdown)
+		free(env);
+	return (1);
 }

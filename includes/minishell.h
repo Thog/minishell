@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 10:32:34 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:39:29 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct			s_env
 
 extern pid_t			*g_child;
 int						minishell_init(t_env **env_data, char **env);
+int						minishell_cleanup(t_env *env, int shutdown);
 int						minishell_loop(t_env *env);
 int						minishell_execute(char **args, t_env *env,
 								int *sig);
@@ -67,6 +68,7 @@ void					destroy_array(t_array *array);
 void					destroy_char_array(char **array);
 int						check_access(char *path);
 void					rebuild_paths(t_env *env);
-t_array					*compute_env(t_array *env, char **args, int *info);
+t_array					*compute_env(t_array *env, char **args, int *info,
+								int verbosity);
 int						execute(char *name, char **args, t_array *env);
 #endif

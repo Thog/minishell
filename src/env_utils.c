@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:09:36 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:26:16 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:19:51 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ void		set_env_array(t_array **array, char *key, char *value, int flag)
 	}
 	else
 		tmp->data = ft_strjoin(key, value);
-	if (flag == 1)
+	if (flag == 1 || flag == 3)
 		ft_strdel(&value);
+	if (flag == 2 || flag == 3)
+		ft_printf_fd(2, "#env setenv:    %s\n", tmp->data);
 }
 
 void		set_env(t_env *env, char *key, char *value, int flag)

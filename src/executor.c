@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 16:11:18 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:08:28 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,16 @@ int					execute(char *name, char **args, t_array *env)
 	return (!WIFSIGNALED(status));
 }
 
-t_array				*compute_env(t_array *env, char **args, int *info)
+t_array				*compute_env(t_array *env, char **args, int *info,
+	int verbosity)
 {
 	t_array		*result;
 	int			i;
 	int			length;
 	char		*tmp;
 
+	if (!env && verbosity)
+		ft_printf_fd(2, "#env clearing environ\n");
 	i = 0;
 	length = char_array_length(args);
 	result = array_dup(env);
@@ -63,7 +66,7 @@ t_array				*compute_env(t_array *env, char **args, int *info)
 		if (!ft_strchr(args[i], '='))
 			break ;
 		tmp = ft_strsub(args[i], 0, ft_strchr(args[i], '=') - args[i] + 1);
-		set_env_array(&result, tmp, ft_strchr(args[i], '=') + 1, 0);
+		set_env_array(&result, tmp, ft_strchr(args[i], '=') + 1, verbosity);
 		i++;
 	}
 	*info = i;
@@ -91,20 +94,18 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 	path = NULL;
 	if (!*args || !ft_isprint(**args))
 		return (1);
-	tmp_array = compute_env(env->env, args, &i);
+	tmp_array = compute_env(env->env, args, &i, 0);
 	if ((i != 0 && args[i]) || (i == 0 && !builtins_execute(args, env)))
 	{
-		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
-				&& info)
+		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]))
 			ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
 				"command not found", args[i]);
 		else
 			*sig = execute(path, args + i, tmp_array);
 		ft_strdel(&path);
 	}
-	else if (i != 0 && !args[i])
+	else if (i != 0 && !args[i] && minishell_cleanup(env, 0))
 	{
-		destroy_array(env->env);
 		env->env = tmp_array;
 		rebuild_paths(env);
 	}
