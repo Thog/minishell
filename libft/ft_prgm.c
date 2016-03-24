@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 14:53:09 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:53:41 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int			prepare_args(char *str, void *data,
 	while (tmp && (result = compute_options(data, ++str)))
 	{
 		if (*str == '\0')
-			break;
+			break ;
 	}
 	if (!tmp)
 		return (0);

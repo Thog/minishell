@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 13:41:18 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:41:43 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int					execute(char *name, char **args, t_array *env)
 	return (!WIFSIGNALED(status));
 }
 
-t_array			*compute_env(t_array *env, char **args, int *info)
+t_array				*compute_env(t_array *env, char **args, int *info)
 {
 	t_array		*result;
 	int			i;

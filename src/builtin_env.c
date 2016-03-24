@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:51:13 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:22:48 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:50:18 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,15 @@ static void		execute_array(char **args, t_env *env, int *data)
 	t_array		*tmp_array;
 
 	tmp_array = compute_env(*data == 257 ? NULL : env->env, args, &i);
-	ft_printf_fd(2, "(tDEBUG): %p\n", tmp_array);
 	if (args[i])
 	{
-		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]) &&
-				info)
+		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
+				&& info)
 			ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
-				"command not found", args[i]);
+					"command not found", args[i]);
 		else
 			execute(path, args + i, tmp_array);
-	ft_strdel(&path);
+		ft_strdel(&path);
 	}
 	else
 		print_env(tmp_array);
@@ -63,21 +62,21 @@ int				minishell_builtin_env(char **args, t_env *env)
 	int		ac;
 	int		data[2];
 	int		i;
+	char	*usage;
 
 	data[0] = 0;
 	data[1] = 0;
+	usage = "[-iv] [name=value]... [utility [argument...]]";
 	ac = char_array_length(args);
 	if (ac > 1)
 	{
 		i = ft_parse_args(ac, args, &data, &compute_options) - 1;
 		if (data[0] != 0 && data[0] < 256)
-			return (ft_usage(args[0],
-				"[-iv] [name=value]... [utility [argument...]]", (char)data));
+			return (ft_usage(args[0], usage, (char)data));
 		if (args[i])
 			execute_array(args + i, env, data);
 		else
 			print_env(env->env);
-
 	}
 	else
 		print_env(env->env);

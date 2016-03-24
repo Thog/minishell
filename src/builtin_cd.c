@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:27:59 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/24 15:40:59 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int		compute_options(void *data, char *c)
 	char	*params;
 
 	params = (char*)data;
-
 	if (*c == '\0')
 		*params = 1;
 	else
