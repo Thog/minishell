@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:40:59 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 09:02:09 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int				minishell_builtin_cd(char **args, t_env *env)
 		tmp = check_access(path);
 		if (path && !tmp && !chdir(path))
 		{
-			set_env(env, "PWD=", path, 0);
+			set_env(env, "PWD=", getcwd(NULL, 0), 0);
 			set_env(env, "OLDPWD=", tmp2, 1);
 		}
 		else if (path && tmp && (tmp2 = tmp == 2 ? "no such file or directory" :

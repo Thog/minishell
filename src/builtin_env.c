@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:51:13 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 17:07:42 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 09:40:40 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void		execute_array(char **args, t_env *env, int *data)
 	tmp_array = compute_env(*data == 257 ? NULL : env->env, args, &i, data[1]);
 	if (args[i] && (i != 0 || *args[i] != '-'))
 	{
-		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]))
+		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
+				&& info)
 			ft_printf_fd(2, "env: %s: %s\n", info ? "permission denied" :
 					"command not found", args[i]);
 		else

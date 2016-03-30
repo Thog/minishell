@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 17:08:28 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 09:39:47 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 	tmp_array = compute_env(env->env, args, &i, 0);
 	if ((i != 0 && args[i]) || (i == 0 && !builtins_execute(args, env)))
 	{
-		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i]))
+		if (!ft_strcmp((path = find_path(args[i], env->paths, &info)), args[i])
+			&& info)
 			ft_printf_fd(2, "minishell: %s: %s\n", info ? "permission denied" :
 				"command not found", args[i]);
 		else
