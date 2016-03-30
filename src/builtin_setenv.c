@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/30 10:26:29 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 10:39:09 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int				minishell_builtin_setenv(char **args, t_env *env)
 			ft_strdel(&key);
 			return (1);
 		}
-	ft_putstr_fd("setenv: Variable name must contain alphanumeric characters.\n"
-		, 2);
+		key = "setenv: Variable name must contain alphanumeric characters.\n";
+		ft_putstr_fd(key, 2);
 	}
 	else
 		ft_putstr_fd("setenv: Too many arguments.\n", 2);
