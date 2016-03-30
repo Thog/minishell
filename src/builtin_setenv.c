@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 16:59:20 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 10:26:29 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@ int				minishell_builtin_setenv(char **args, t_env *env)
 		print_env(env->env);
 	else if (ac < 4)
 	{
-		key = ft_strjoin(args[1], "=");
-		set_env(env, key, ac == 3 ? args[2] : "", 0);
-		ft_strdel(&key);
+		if (ft_isstralnum(args[1]))
+		{
+			key = ft_strjoin(args[1], "=");
+			set_env(env, key, ac == 3 ? args[2] : "", 0);
+			ft_strdel(&key);
+			return (1);
+		}
+	ft_putstr_fd("setenv: Variable name must contain alphanumeric characters.\n"
+		, 2);
 	}
 	else
 		ft_putstr_fd("setenv: Too many arguments.\n", 2);

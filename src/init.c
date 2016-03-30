@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:38 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/30 09:41:12 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 09:51:36 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ pid_t	*g_child;
 void	signal_handler(int signal)
 {
 	(void)signal;
-	if (!*g_child)
+	if (!*g_child && signal != SIGQUIT && signal != SIGTSTP)
 	{
-		if (signal == SIGINT)
+		if (signal != SIGINFO)
 			ft_putchar('\n');
 		ft_putstr("$> ");
 	}
@@ -34,7 +34,9 @@ int		minishell_init(t_env **env_data, char **env)
 	(*env_data)->paths = convert_paths(env[get_env(env, "PATH=")]);
 	(*env_data)->exit_code = 0;
 	return (signal(SIGINT, signal_handler) == SIG_ERR ||
-				signal(SIGINFO, signal_handler) == SIG_ERR);
+			signal(SIGINFO, signal_handler) == SIG_ERR ||
+			signal(SIGQUIT, signal_handler) == SIG_ERR ||
+			signal(SIGTSTP, signal_handler) == SIG_ERR);
 }
 
 int		minishell_cleanup(t_env *env, int shutdown)
