@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/30 09:02:09 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/03/30 11:02:09 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,38 @@ static char		*get_oldpwd(t_env *env)
 	return (old_path);
 }
 
+static char		*get_special(t_env *env, char *key, char *postfix, int index)
+{
+	t_array	*tmp;
+
+	if ((tmp = array_get(env->env, key)))
+	{
+		if (postfix)
+			return (ft_strjoin(tmp->data + index, postfix + 1));
+		else
+			return (ft_strdup(tmp->data + index));
+	}
+	return (NULL);
+}
+
 static char		*getpwd(char *str, char *params, t_env *env)
 {
 	char	*path;
-	t_array	*tmp;
 
 	if (!str || *str == '~')
 	{
-		if (!(tmp = array_get(env->env, "HOME=")))
+		if (!(path = get_special(env, "HOME=", str, 5)))
 			return (ft_error_return("cd: HOME not set\n", NULL));
-		path = tmp->data + 5;
 	}
 	else
 	{
-		path = str;
-		if (*params == 1)
+		if (*params == 1 || *str == '-')
 		{
-			if (!(tmp = array_get(env->env, "OLDPWD=")))
+			if (!(path = get_special(env, "OLDPWD=", str, 7)))
 				return (ft_error_return("cd: OLDPWD not set\n", NULL));
-			path = tmp->data + 7;
 		}
+		else
+			path = str;
 	}
 	return (path);
 }
