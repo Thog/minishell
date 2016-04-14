@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:49:44 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/30 10:22:06 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/04/14 09:11:28 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,4 +128,18 @@ int					ft_usage(char *prg_name, char *usage, char illegal_char);
 char				*ft_error_return(char *str, char *code);
 char				*ft_get_filename(char *path);
 char				**ft_strsplitcmp(char const *s, int (*f)(int c));
+int					ft_error_retint(char *str, int code);
+
+typedef struct		s_array
+{
+	char			*data;
+	struct s_array	*next;
+}					t_array;
+
+t_array				*array_init(t_array *root, char *str);
+t_array				*array_dup(t_array *src);
+t_array				*to_array(char **src);
+char				**to_char_array(t_array *src);
+void				destroy_array(t_array *array);
+
 #endif

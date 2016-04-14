@@ -6,11 +6,11 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/04 11:53:01 by tguillem          #+#    #+#              #
-#    Updated: 2016/03/24 11:52:08 by tguillem         ###   ########.fr        #
+#    Updated: 2016/04/14 08:58:22 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFLAGS = -g -Wall -Wextra -Werror -I./includes
+CFLAGS = -g -Wall -Wextra -Werror -march=native -I./includes
 PRGFLAGS = -lft
 CC = gcc
 

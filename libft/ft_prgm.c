@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 15:53:41 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/04/14 07:51:07 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ int					ft_usage(char *prg_name, char *usage, char illegal_char)
 }
 
 char				*ft_error_return(char *str, char *code)
+{
+	ft_putstr_fd(str, 2);
+	return (code);
+}
+
+int					ft_error_retint(char *str, int code)
 {
 	ft_putstr_fd(str, 2);
 	return (code);
