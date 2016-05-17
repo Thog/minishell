@@ -6,13 +6,13 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 08:13:21 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/05/17 15:51:13 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**wrap_str(char *str)
+/*static char	**wrap_str(char *str)
 {
 	char		**result;
 
@@ -44,34 +44,44 @@ static char	**merge_array(char **dest, char **src)
 	free(tmp3);
 	*tmp = NULL;
 	return (result);
-}
+}*/
 
 static char	**minishell_split(char *line)
 {
-	char		**result;
-	char		*tmp2;
-	char		*tmp3;
+	char	**index;
+	char	**origin;
+	char	**tmp;
+	char	*tmp1;
 
-	result = ft_strsplitcmp(line, &ft_isblank);
-	if ((tmp2 = ft_strchr(line, '"')) && tmp2 != line && *(tmp2 - 1) != '\\')
+	tmp = NULL;
+	origin = ft_strsplitcmp(line, &ft_isblank);
+	index = origin;
+	while (index && *index)
 	{
-		destroy_char_array(result);
-		tmp3 = ft_strsub(line, 0, tmp2 - line);
-		result = ft_strsplit(tmp3, ' ');
-		ft_strdel(&tmp3);
+		if (tmp)
+		{
+			tmp1 = *tmp;
+			*tmp = ft_strjoin(*tmp, " ");
+			ft_strdel(&tmp1);
+			tmp1 = *tmp;
+			*tmp = ft_strjoin(*tmp, *index);
+			ft_strdel(&tmp1);
+		}
+		if (ft_strchr(*index, '"'))
+		{
+			if (tmp)
+				tmp = NULL;
+			else
+			{
+				tmp = index;
+				*tmp = ft_strdup(ft_strchr(*index, '"') + 1);
+			}
+		}
+		else if (tmp)
+			*index = NULL;
+		index++;
 	}
-	tmp2 = line;
-	while ((tmp2 = ft_strchr(tmp2, '"')))
-	{
-		if ((tmp2++ + 1) && *(tmp2 - 1) == '\\')
-			continue ;
-		if (((tmp3 = ft_strchr(tmp2, '"')) && *(tmp3 - 1) == '\\'))
-			continue ;
-		else if (!(tmp3 = ft_strchr(tmp2, '"')))
-			break ;
-		result = merge_array(result, wrap_str(ft_strsub(tmp2, 0, tmp3 - tmp2)));
-	}
-	return (result);
+	return (origin);
 }
 
 int			minishell_loop(t_env *env)
