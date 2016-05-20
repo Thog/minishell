@@ -6,7 +6,7 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/04 11:53:01 by tguillem          #+#    #+#              #
-#    Updated: 2016/04/14 08:58:22 by tguillem         ###   ########.fr        #
+#    Updated: 2016/05/20 16:38:58 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRCDIR = src
 OUTDIR = out
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))
 OBJ = $(addprefix $(OUTDIR)/, $(SRC:.c=.o))
-all: $(NAME)
 
 $(NAME): $(OUTDIR) $(OBJ)
 	@(cd $(LIB) && $(MAKE))
@@ -46,3 +45,5 @@ fclean: clean
 .PHONY: clean fclean re
 
 re: fclean all
+
+all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:49:44 by tguillem          #+#    #+#             */
-/*   Updated: 2016/04/14 09:11:28 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/05/20 17:15:49 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ t_array				*array_dup(t_array *src);
 t_array				*to_array(char **src);
 char				**to_char_array(t_array *src);
 void				destroy_array(t_array *array);
+char				*ft_trim(char *src, char excluded);
 
 #endif

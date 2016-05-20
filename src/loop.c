@@ -6,45 +6,11 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/05/17 15:51:13 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/05/20 17:25:16 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*static char	**wrap_str(char *str)
-{
-	char		**result;
-
-	if (!(result = (char **)ft_memalloc(sizeof(char**) * 2)))
-		return (NULL);
-	*result = str;
-	*(result + 1) = NULL;
-	return (result);
-}
-
-static char	**merge_array(char **dest, char **src)
-{
-	char		**result;
-	char		**tmp;
-	char		**tmp2;
-	char		**tmp3;
-
-	if (!(result = (char **)ft_memalloc(sizeof(char**) * (
-						char_array_length(src) + char_array_length(dest) + 1))))
-		return (NULL);
-	tmp = result;
-	tmp2 = dest;
-	tmp3 = src;
-	while (dest && *dest)
-		*tmp++ = *dest++;
-	free(tmp2);
-	while (src && *src)
-		*tmp++ = *src++;
-	free(tmp3);
-	*tmp = NULL;
-	return (result);
-}*/
 
 static char	**minishell_split(char *line)
 {
@@ -70,12 +36,10 @@ static char	**minishell_split(char *line)
 		if (ft_strchr(*index, '"'))
 		{
 			if (tmp)
-				tmp = NULL;
+				*tmp = ft_trim(*tmp, '"');
 			else
-			{
-				tmp = index;
-				*tmp = ft_strdup(ft_strchr(*index, '"') + 1);
-			}
+				*index = ft_strdup(ft_strchr(*index, '"') + 1);
+			tmp = tmp ? NULL : index;
 		}
 		else if (tmp)
 			*index = NULL;
