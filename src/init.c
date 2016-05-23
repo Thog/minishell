@@ -27,11 +27,13 @@ void	signal_handler(int signal)
 
 int		minishell_init(t_env **env_data, char **env)
 {
+	int		path;
 	if (!(*env_data = (t_env*)malloc(sizeof(t_env))) ||
 		!(g_child = (pid_t*)ft_memalloc(sizeof(pid_t))))
 		return (-1);
+	path = get_env(env, "PATH=");
 	(*env_data)->env = to_array(env);
-	(*env_data)->paths = convert_paths(env[get_env(env, "PATH=")]);
+	(*env_data)->paths = convert_paths(path == -1 ? NULL : env[path]);
 	(*env_data)->exit_code = 0;
 	return (signal(SIGINT, signal_handler) == SIG_ERR ||
 			signal(SIGINFO, signal_handler) == SIG_ERR ||

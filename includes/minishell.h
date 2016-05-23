@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <dirent.h>
 
-# ifdef linux
+# ifndef __APPLE__
 #  include <sys/types.h>
 #  include <sys/wait.h>
 # endif
@@ -60,4 +60,5 @@ void					rebuild_paths(t_env *env);
 t_array					*compute_env(t_array *env, char **args, int *info,
 								int verbosity);
 int						execute(char *name, char **args, t_array *env);
+int						end_with(char *str, char c);
 #endif

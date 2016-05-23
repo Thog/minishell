@@ -22,3 +22,8 @@ int				check_access(char *path)
 	}
 	return (0);
 }
+
+int				end_with(char *str, char c)
+{
+	return (str ? (str[ft_min(ft_strlen(str) - 1, 0)] == c) : 0);
+}
