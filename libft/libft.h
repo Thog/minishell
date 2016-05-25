@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:49:44 by tguillem          #+#    #+#             */
-/*   Updated: 2016/05/20 17:15:49 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/05/25 11:26:58 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_isstralnum(char *str);
+int					ft_isstrnum(char *str);
 
 typedef struct		s_list
 {
@@ -91,7 +92,7 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *));
-
+t_list				*ft_lstget(t_list *lst, void *data, size_t data_size);
 size_t				ft_lstsize(t_list *lst);
 int					ft_iswhitespace(int c);
 int					ft_isblank(int c);

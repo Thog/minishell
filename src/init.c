@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:38 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/30 09:51:36 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/05/25 11:09:02 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	signal_handler(int signal)
 int		minishell_init(t_env **env_data, char **env)
 {
 	int		path;
+
 	if (!(*env_data = (t_env*)malloc(sizeof(t_env))) ||
 		!(g_child = (pid_t*)ft_memalloc(sizeof(pid_t))))
 		return (-1);

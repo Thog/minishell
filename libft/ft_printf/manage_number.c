@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 
 ssize_t				ft_printf_manage_long_bis(char **format, va_list *args,
-		t_data *data)
+		t_pdata *data)
 {
 	uintmax_t				nbr;
 
@@ -25,14 +25,14 @@ ssize_t				ft_printf_manage_long_bis(char **format, va_list *args,
 }
 
 ssize_t				ft_printf_manage_long(char **format, va_list *args,
-		t_data *data)
+		t_pdata *data)
 {
 	data->length = 2;
 	return (ft_printf_get_manager(ft_tolower(**format))(format, args, data));
 }
 
 ssize_t				ft_printf_manage_int(char **format, va_list *args,
-		t_data *data)
+		t_pdata *data)
 {
 	intmax_t				nbr;
 	char					*prefix;
@@ -61,7 +61,7 @@ ssize_t				ft_printf_manage_int(char **format, va_list *args,
 }
 
 ssize_t				ft_printf_manage_octal(char **format, va_list *args,
-		t_data *data)
+		t_pdata *data)
 {
 	uintmax_t	nbr;
 
@@ -88,7 +88,7 @@ ssize_t				ft_printf_manage_octal(char **format, va_list *args,
 }
 
 ssize_t				ft_printf_manage_hexa(char **format, va_list *args,
-		t_data *data)
+		t_pdata *data)
 {
 	uintmax_t	nbr;
 	char		*base;

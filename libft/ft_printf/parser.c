@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*ft_printf_parse_flags(char **format, t_data *data)
+char	*ft_printf_parse_flags(char **format, t_pdata *data)
 {
 	if (**format == '#' || **format == '0' || **format == '-' ||
 			**format == '+' || **format == ' ')
@@ -35,7 +35,7 @@ char	*ft_printf_parse_flags(char **format, t_data *data)
 	return (*format);
 }
 
-char	*ft_printf_parse_accuracy(char **format, va_list *list, t_data *data)
+char	*ft_printf_parse_accuracy(char **format, va_list *list, t_pdata *data)
 {
 	int acc;
 
@@ -63,7 +63,7 @@ char	*ft_printf_parse_accuracy(char **format, va_list *list, t_data *data)
 	return (*format);
 }
 
-char	*ft_printf_parse_width(char **format, va_list *list, t_data *data)
+char	*ft_printf_parse_width(char **format, va_list *list, t_pdata *data)
 {
 	int		got;
 
@@ -90,7 +90,7 @@ char	*ft_printf_parse_width(char **format, va_list *list, t_data *data)
 	return (*format);
 }
 
-char	*ft_printf_parse_length(char **format, t_data *data)
+char	*ft_printf_parse_length(char **format, t_pdata *data)
 {
 	if (**format == 'h' && *(*format + 1) == 'h')
 	{

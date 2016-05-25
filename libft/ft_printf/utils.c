@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 
 unsigned int		ft_printf_maxstrlen(uintmax_t nbr, char *base, char *p,
-		t_data *data)
+		t_pdata *data)
 {
 	unsigned int	len;
 	unsigned int	result;
@@ -41,7 +41,7 @@ void				ft_printf_width_pad(int nbrstrlen, int width,
 }
 
 uintmax_t			ft_printf_get_unsigned_from_length(va_list *datas,
-		t_data *data)
+		t_pdata *data)
 {
 	uintmax_t	nbr;
 
@@ -64,7 +64,7 @@ uintmax_t			ft_printf_get_unsigned_from_length(va_list *datas,
 }
 
 intmax_t			ft_printf_get_signed_from_length(va_list *args,
-		t_data *data)
+		t_pdata *data)
 {
 	intmax_t	nbr;
 
@@ -87,7 +87,7 @@ intmax_t			ft_printf_get_signed_from_length(va_list *args,
 }
 
 ssize_t				ft_printf_nbrforceprefix(uintmax_t nbr, char *base,
-		t_data *data, char *prefix)
+		t_pdata *data, char *prefix)
 {
 	unsigned	len;
 	size_t		cut;

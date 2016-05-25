@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-ssize_t	ft_printf_manage_wchar(char **format, va_list *args, t_data *data)
+ssize_t	ft_printf_manage_wchar(char **format, va_list *args, t_pdata *data)
 {
 	wchar_t		chr;
 	unsigned	len;
@@ -38,7 +38,7 @@ ssize_t	ft_printf_manage_wchar(char **format, va_list *args, t_data *data)
 	return (data->got_width ? ft_max(len, data->width) : (ssize_t)len);
 }
 
-ssize_t	ft_printf_manage_char(char **format, va_list *args, t_data *data)
+ssize_t	ft_printf_manage_char(char **format, va_list *args, t_pdata *data)
 {
 	(void)format;
 	if (data->length == 2)
@@ -55,7 +55,7 @@ ssize_t	ft_printf_manage_char(char **format, va_list *args, t_data *data)
 	}
 }
 
-ssize_t	ft_printf_manage_str(char **format, va_list *args, t_data *data)
+ssize_t	ft_printf_manage_str(char **format, va_list *args, t_pdata *data)
 {
 	char	*str;
 	size_t	len;

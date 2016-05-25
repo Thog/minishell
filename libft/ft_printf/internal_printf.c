@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		manage_args(char **format, va_list *args, t_data *data)
+int		manage_args(char **format, va_list *args, t_pdata *data)
 {
 	int			ret;
 	t_manager	f;
@@ -36,7 +36,7 @@ int		manage_args(char **format, va_list *args, t_data *data)
 int		internal_printf(const char *format, va_list *args, int length, int fd)
 {
 	char	*next_arg;
-	t_data	prop_data;
+	t_pdata	prop_data;
 	int		len;
 
 	len = 0;

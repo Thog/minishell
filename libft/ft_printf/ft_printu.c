@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void	ft_putnbrbase_inter(uintmax_t nbr, char *base, t_data *data,
+static void	ft_putnbrbase_inter(uintmax_t nbr, char *base, t_pdata *data,
 		unsigned int len)
 {
 	if (data->got_accuracy)
@@ -21,7 +21,7 @@ static void	ft_putnbrbase_inter(uintmax_t nbr, char *base, t_data *data,
 		ft_putnbrbase_fd(nbr, base, data->fd);
 }
 
-ssize_t		ft_printfu(uintmax_t nbr, t_data *data, char *base, char *prefix)
+ssize_t		ft_printfu(uintmax_t nbr, t_pdata *data, char *base, char *prefix)
 {
 	unsigned int			len;
 	unsigned int			strlen;

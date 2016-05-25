@@ -6,7 +6,7 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/07/21 12:17:37 by tguillem          #+#    #+#              #
-#    Updated: 2016/05/20 17:17:19 by tguillem         ###   ########.fr        #
+#    Updated: 2016/05/25 11:27:17 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC = ft_memset.c ft_bzero.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
 	  ft_printf/manage_specials.c ft_printf/manage_str.c \
 	  ft_printf/manage_str.c ft_printf/manage_wstr.c ft_printf/manager_base.c \
 	  ft_printf/parser.c ft_printf/utils.c ft_prgm.c ft_path.c \
-	  ft_strsplitcmp.c ft_array.c ft_trim.c
+	  ft_strsplitcmp.c ft_array.c ft_lstget.c ft_isstrnum.c ft_trim.c
 
 OBJ = $(SRC:.c=.o)
 REMOVE = $(OBJ)

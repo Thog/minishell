@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <inttypes.h>
 
-typedef struct		s_data
+typedef struct		s_pdata
 {
 	int				prefix;
 	int				zero_pad;
@@ -31,54 +31,54 @@ typedef struct		s_data
 	unsigned int	width;
 	unsigned int	accuracy;
 	unsigned int	length;
-}					t_data;
+}					t_pdata;
 
-char				*ft_printf_parse_flags(char **format, t_data *data);
+char				*ft_printf_parse_flags(char **format, t_pdata *data);
 char				*ft_printf_parse_width(char **format, va_list *list,
-		t_data *data);
+		t_pdata *data);
 char				*ft_printf_parse_accuracy(char **format, va_list *list,
-		t_data *data);
-char				*ft_printf_parse_length(char **format, t_data *data);
+		t_pdata *data);
+char				*ft_printf_parse_length(char **format, t_pdata *data);
 int					ft_printf(const char *format, ...);
 int					ft_printf_fd(int fd, const char *format, ...);
 int					internal_printf(const char *format, va_list *args,
 		int length, int fd);
 intmax_t			ft_printf_get_signed_from_length(va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_wchar(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_char(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_str(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_wstr(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_long(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_long_bis(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_int(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_octal(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_hexa(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_ptr(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_percent(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_manage_null(char **format, va_list *args,
-		t_data *data);
+		t_pdata *data);
 ssize_t				ft_printf_nbrforceprefix(uintmax_t nbr, char *base,
-		t_data *data, char *prefix);
-ssize_t				ft_printfu(uintmax_t nbr, t_data *data, char *base,
+		t_pdata *data, char *prefix);
+ssize_t				ft_printfu(uintmax_t nbr, t_pdata *data, char *base,
 		char *prefix);
-typedef ssize_t		(*t_manager)(char**, va_list*, t_data*);
+typedef ssize_t		(*t_manager)(char**, va_list*, t_pdata*);
 t_manager			ft_printf_get_manager(char c);
 uintmax_t			ft_printf_get_unsigned_from_length(va_list *datas,
-		t_data *data);
+		t_pdata *data);
 unsigned int		ft_printf_maxstrlen(uintmax_t nbr, char *base, char *p,
-		t_data *data);
+		t_pdata *data);
 unsigned int		ft_printf_nbrlen(uintmax_t nbr, char *base);
 void				ft_printf_width_pad(int nbrstrlen, int width,
 		char padwith, int fd);
