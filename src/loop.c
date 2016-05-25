@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/05/25 11:18:16 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/05/25 12:10:18 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ static char	**minishell_split(char *line)
 			if (tmp)
 			{
 				*tmp = ft_trim(*tmp, '"');
+				tmp1 = *tmp;
+				*tmp = ft_strdup(*tmp);
+				ft_strdel(&tmp1);
 				*index = NULL;
 			}
 			else
