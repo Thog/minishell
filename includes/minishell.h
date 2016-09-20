@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/04/14 09:09:37 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:35:52 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ t_array					*compute_env(t_array *env, char **args, int *info,
 								int verbosity);
 int						execute(char *name, char **args, t_array *env);
 int						end_with(char *str, char c);
+int						can_execute(char *name, t_array *paths, char **path);
 #endif

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 08:46:40 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 16:37:08 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:26:40 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char			*find_path(char *name, t_array *paths, int *info)
 		}
 		paths = paths->next;
 	}
-	return (ft_strdup(name));
+	return (!ft_strncmp("./", name, 2) ? ft_strdup(name) : NULL);
 }
 
 void			rebuild_paths(t_env *env)
