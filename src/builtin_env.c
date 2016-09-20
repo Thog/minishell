@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:51:13 by tguillem          #+#    #+#             */
-/*   Updated: 2016/09/20 14:33:48 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:57:53 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ static int		compute_options(void *data, char *c)
 	return (1);
 }
 
+static void		print_verbose_message(char **args)
+{
+	int		i;
+
+	i = 0;
+	ft_printf_fd(2, "#env executing: %s\n", args[0]);
+	while (args[i])
+	{
+		ft_printf_fd(2, "#env    args[%d]= \'%s\'\n", i, args[i]);
+		i++;
+	}
+}
+
 static void		execute_array(char **args, t_env *env, int *data)
 {
 	char		*path;
@@ -44,7 +57,9 @@ static void		execute_array(char **args, t_env *env, int *data)
 	tmp_array = compute_env(*data == 257 ? NULL : env->env, args, &i, data[1]);
 	if (args[i] && (i != 0 || *args[i] != '-'))
 	{
-		if (can_execute(args[i], env->paths, &path))
+		if (data[1])
+			print_verbose_message(args);
+		if (can_execute(args[i], env->paths, &path, "env"))
 			execute(path, args + i, tmp_array);
 		ft_strdel(&path);
 	}

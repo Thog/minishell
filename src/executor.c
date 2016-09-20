@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/09/20 14:38:41 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/09/20 14:44:12 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 	tmp_array = compute_env(env->env, args, &i, 0);
 	if ((i != 0 && args[i]) || (i == 0 && !builtins_execute(args, env)))
 	{
-		if (can_execute(args[i], env->paths, &path))
+		if (can_execute(args[i], env->paths, &path, "minishell"))
 			*sig = execute(path, args + i, tmp_array);
 		ft_strdel(&path);
 	}
