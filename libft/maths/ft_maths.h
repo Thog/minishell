@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_maths.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tguillem <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/23 12:44:50 by tguillem          #+#    #+#             */
-/*   Updated: 2016/02/16 10:52:28 by tguillem         ###   ########.fr       */
+/*   Created: 2016/09/20 12:51:03 by tguillem          #+#    #+#             */
+/*   Updated: 2016/09/20 12:57:23 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef FT_MATHS_H
+# define FT_MATHS_H
+# include <math.h>
 
-char			*ft_itoa(int n)
-{
-	return (ft_itoa_base(n, 10));
-}
+double		ft_clamp(double value, double low, double high);
+
+#endif
