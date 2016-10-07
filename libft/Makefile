@@ -6,7 +6,7 @@
 #    By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/07/21 12:17:37 by tguillem          #+#    #+#              #
-#    Updated: 2016/09/20 12:48:27 by tguillem         ###   ########.fr        #
+#    Updated: 2016/10/06 17:38:38 by tguillem         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ BASE = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	  ft_max.c ft_putnbrbase.c ft_wstrlen.c ft_putwchar.c ft_putwstr.c \
 	  ft_min.c ft_itoa_base.c get_next_line.c ft_time.c ft_count_digit.c \
 	  ft_isstralnum.c ft_putwchar_fd.c ft_putwstr_fd.c ft_prgm.c ft_path.c \
-	  ft_array.c ft_isstrnum.c ft_trim.c endian.c ft_atoi.c ft_itoa.c
+	  ft_array.c ft_isstrnum.c ft_trim.c endian.c ft_atoi.c ft_itoa.c \
+	  resource_manager.c
 
 STRING = ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c ft_strcat.c \
 		 ft_strncat.c ft_strlcat.c ft_strstr.c ft_strcmp.c ft_strncmp.c \

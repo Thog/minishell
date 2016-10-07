@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/26 16:00:07 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:46:35 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/06 18:10:50 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,19 @@ static void		init_managers(t_manager *manager)
 	manager['C'] = &ft_printf_manage_wchar;
 }
 
+t_manager		*get_printf_managers(void)
+{
+	static t_manager	managers[256];
+
+	return (managers);
+}
+
 t_manager		ft_printf_get_manager(char c)
 {
-	static t_manager	*managers = NULL;
+	static t_manager	*managers;
 
-	if (!managers)
-	{
-		managers = (t_manager*)ft_memalloc(sizeof(t_manager) * 256);
-		if (managers)
-			init_managers(managers);
-	}
+	managers = get_printf_managers();
+	if (!*managers)
+		init_managers(managers);
 	return (managers[(int)c]);
 }

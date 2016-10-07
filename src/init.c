@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:38 by tguillem          #+#    #+#             */
-/*   Updated: 2016/05/25 11:09:02 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/07 20:38:37 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		minishell_init(t_env **env_data, char **env)
 {
 	int		path;
 
-	if (!(*env_data = (t_env*)malloc(sizeof(t_env))) ||
+	if (!(*env_data = (t_env*)ft_memalloc(sizeof(t_env))) ||
 		!(g_child = (pid_t*)ft_memalloc(sizeof(pid_t))))
 		return (-1);
 	path = get_env(env, "PATH=");
@@ -48,6 +48,9 @@ int		minishell_cleanup(t_env *env, int shutdown)
 	destroy_array(env->paths);
 	env->paths = NULL;
 	if (shutdown)
+	{
+		free(g_child);
 		free(env);
+	}
 	return (1);
 }

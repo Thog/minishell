@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/04 14:56:21 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/15 17:32:06 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/06 17:40:02 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ ssize_t				ft_printf_nbrforceprefix(uintmax_t nbr, char *base,
 ssize_t				ft_printfu(uintmax_t nbr, t_pdata *data, char *base,
 		char *prefix);
 typedef ssize_t		(*t_manager)(char**, va_list*, t_pdata*);
+t_manager			*get_printf_managers();
 t_manager			ft_printf_get_manager(char c);
 uintmax_t			ft_printf_get_unsigned_from_length(va_list *datas,
 		t_pdata *data);

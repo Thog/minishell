@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/11 14:02:41 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/22 09:46:20 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/06 18:19:48 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ static char		*substr(char *str, int start, int end)
 
 int				get_next_line(int const fd, char **line)
 {
-	static t_buff	*root;
+	t_buff			**root;
 	t_buff			*c;
 	char			buffer[BUFF_SIZE + 1];
 	int				ret;
 
+	root = get_gnl_buffer();
 	ret = 1;
-	if (!line || BUFF_SIZE <= 0 || !(c = get_buff(&root, fd)))
+	if (!line || BUFF_SIZE <= 0 || !(c = get_buff(root, fd)))
 		return (-1);
 	while (!ft_strchr(c->buff, '\n') && (ret = read(fd, buffer, BUFF_SIZE)))
 	{

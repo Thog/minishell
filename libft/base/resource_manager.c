@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   resource_manager.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/14 18:27:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/07 20:20:56 by tguillem         ###   ########.fr       */
+/*   Created: 2016/10/06 17:31:35 by tguillem          #+#    #+#             */
+/*   Updated: 2016/10/06 18:11:12 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+t_buff				**get_gnl_buffer(void)
 {
-	t_env	*env_data;
-	int		result;
+	static t_buff	*root = NULL;
 
-	(void)ac;
-	(void)av;
-	env_data = NULL;
-	if (minishell_init(&env_data, env))
-		return (1);
-	result = minishell_loop(env_data);
-	minishell_cleanup(env_data, 1);
-	resource_manager_destroy();
-	return (result);
+	return (&root);
+}
+
+void				resource_manager_destroy(void)
+{
+	t_buff		**tmp;
+	t_buff		*gnl;
+	void		*prev;
+
+	tmp = get_gnl_buffer();
+	gnl = *tmp;
+	if (gnl)
+	{
+		ft_strdel(&gnl->buff);
+		prev = gnl;
+		gnl = gnl->next;
+		ft_memdel(&prev);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 12:49:44 by tguillem          #+#    #+#             */
-/*   Updated: 2016/07/18 18:49:18 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/06 18:04:07 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct		s_buff
 	struct s_buff	*next;
 }					t_buff;
 
+t_buff				**get_gnl_buffer();
 int					get_next_line(int const fd, char **line);
 int					ft_parse_args(int ac, char **av, void *data,
 						int (*compute_options)(void*, char*));
@@ -101,5 +102,5 @@ int					is_be();
 short				swap_short(short lt);
 int					swap_int(int lt);
 unsigned			swap_uint(unsigned int lt);
-
+void				resource_manager_destroy(void);
 #endif

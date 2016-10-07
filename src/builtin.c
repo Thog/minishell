@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/03/24 16:32:31 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/07 20:55:14 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int						minishell_builtin_exit(char **args, t_env *env)
 	else
 	{
 		code = ac == 2 ? (unsigned int)ft_atoi(args[1]) : 0;
-		minishell_cleanup(env, 1);
-		exit(code);
+		env->exit_code = code;
+		return (2);
 	}
 	return (1);
 }
