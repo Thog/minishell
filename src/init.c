@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:27:38 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/07 20:38:37 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/14 13:45:20 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int		minishell_init(t_env **env_data, char **env)
 
 int		minishell_cleanup(t_env *env, int shutdown)
 {
-	destroy_array(env->env);
-	destroy_array(env->paths);
+	destroy_array(&env->env);
+	destroy_array(&env->paths);
 	env->paths = NULL;
 	if (shutdown)
 	{

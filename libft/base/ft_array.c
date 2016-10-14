@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/14 09:01:19 by tguillem          #+#    #+#             */
-/*   Updated: 2016/04/14 09:10:45 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/14 13:57:39 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_array			*array_init(t_array *root, char *str)
 	t_array		*tmp;
 
 	tmp = root;
-	if (!(result = (t_array*)malloc(sizeof(t_array))))
+	if (!(result = (t_array*)ft_memalloc(sizeof(t_array))))
 		return (NULL);
 	result->data = str;
 	result->next = NULL;
@@ -50,20 +50,20 @@ t_array			*array_dup(t_array *src)
 	return (result);
 }
 
-void			destroy_array(t_array *array)
+void			destroy_array(t_array **array)
 {
 	t_array	*to_del;
 	t_array	*tmp;
 
-	if (array)
+	if (array && *array)
 	{
-		tmp = array;
+		tmp = *array;
 		while (tmp)
 		{
 			to_del = tmp;
 			tmp = tmp->next;
-			free(to_del->data);
-			free(to_del);
+			ft_memdel((void **)&to_del->data);
+			ft_memdel((void **)&to_del);
 		}
 	}
 }
@@ -100,7 +100,7 @@ char			**to_char_array(t_array *src)
 	tmp = src;
 	while (tmp)
 	{
-		result[i++] = tmp->data;
+		result[i++] = ft_strdup(tmp->data);
 		tmp = tmp->next;
 	}
 	result[i] = NULL;

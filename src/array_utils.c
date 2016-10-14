@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:28:34 by tguillem          #+#    #+#             */
-/*   Updated: 2016/04/14 09:02:51 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/13 10:37:40 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,16 @@ int			char_array_length(char **array)
 
 void		destroy_char_array(char **array)
 {
-	while (*array && **array)
-		ft_strdel(array);
-	free(array);
+	char	**origin;
+	char	**index;
+
+	index = array;
+	origin = index;
+	while (array && *array)
+	{
+		index = array;
+		array++;
+		ft_strdel(index);
+	}
+	free(origin);
 }

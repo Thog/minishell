@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/07 20:49:53 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/14 14:54:41 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void			post_execute(char ***environ, t_array *env)
 {
-	free(*environ);
-	destroy_array(env);
+	destroy_char_array(*environ);
+	(void)env;
 	ft_memset(g_child, 0, sizeof(g_child));
 }
 
@@ -66,7 +66,7 @@ t_array				*compute_env(t_array *env, char **args, int *info,
 		if (!ft_strchr(args[i], '='))
 			break ;
 		tmp = ft_strsub(args[i], 0, ft_strchr(args[i], '=') - args[i] + 1);
-		set_env_array(&result, tmp, ft_strchr(args[i], '=') + 1, verbosity);
+		set_env_array(&result, tmp, ft_strdup(ft_strchr(args[i], '=') + 1), verbosity);
 		i++;
 	}
 	*info = i;
@@ -102,11 +102,14 @@ int					minishell_execute(char **args, t_env *env, int *sig)
 		if (can_execute(args[i], env->paths, &path, "minishell"))
 			*sig = execute(path, args + i, tmp_array);
 		ft_strdel(&path);
+		destroy_array(&tmp_array);
 	}
 	else if (i != 0 && !args[i] && minishell_cleanup(env, 0))
 	{
 		env->env = tmp_array;
 		rebuild_paths(env);
 	}
+	else
+		destroy_array(&tmp_array);
 	return (is_exiting == 2 ? 0 : 1);
 }

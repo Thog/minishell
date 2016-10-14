@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 08:46:40 by tguillem          #+#    #+#             */
-/*   Updated: 2016/09/20 14:26:40 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/14 13:45:27 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			rebuild_paths(t_env *env)
 
 	path = array_get(env->env, "PATH=");
 	if (env->paths)
-		destroy_array(env->paths);
+		destroy_array(&env->paths);
 	if (path)
 		env->paths = convert_paths(path->data);
 	else
