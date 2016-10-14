@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/14 14:54:41 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/14 15:47:04 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_array				*compute_env(t_array *env, char **args, int *info,
 		if (!ft_strchr(args[i], '='))
 			break ;
 		tmp = ft_strsub(args[i], 0, ft_strchr(args[i], '=') - args[i] + 1);
-		set_env_array(&result, tmp, ft_strdup(ft_strchr(args[i], '=') + 1), verbosity);
+		set_env_array(&result, tmp, ft_strchr(args[i], '=') + 1, verbosity);
+		ft_strdel(&tmp);
 		i++;
 	}
 	*info = i;
