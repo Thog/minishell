@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 07:51:13 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/14 13:44:54 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/18 12:10:23 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static void		execute_array(char **args, t_env *env, int *data)
 		ft_strdel(&path);
 	}
 	else
-	{
 		print_env(tmp_array);
-		destroy_array(&tmp_array);
-	}
+	destroy_array(&tmp_array);
 }
 
 int				minishell_builtin_env(char **args, t_env *env)
