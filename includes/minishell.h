@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 18:33:56 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/14 13:44:19 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/21 10:10:15 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int						minishell_builtin_env_dispatcher(char **args,
 							t_env *env);
 int						minishell_builtin_setenv(char **args, t_env *env);
 int						minishell_builtin_exit(char **args, t_env *env);
+int						minishell_builtin_echo(char **args, t_env *env);
 int						get_env(char **env, char *name);
 void					set_env(t_env *env, char *key, char *value,
 								int free_value);

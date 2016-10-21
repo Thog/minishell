@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 15:01:01 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/18 12:15:02 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/21 10:09:51 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ static int			builtins_execute(char **args, t_env *env)
 		return (minishell_builtin_exit(args, env));
 	if (!ft_strcmp(*args, "cd"))
 		return (minishell_builtin_cd(args, env));
+	if (!ft_strcmp(*args, "echo"))
+		return (minishell_builtin_echo(args, env));
 	if (minishell_builtin_env_dispatcher(args, env))
 		return (1);
 	return (0);

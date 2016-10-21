@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 17:57:53 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/18 12:12:19 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/21 10:30:34 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,20 @@ int						minishell_builtin_exit(char **args, t_env *env)
 		env->exit_code = code;
 		return (2);
 	}
+	return (1);
+}
+
+int						minishell_builtin_echo(char **args, t_env *env)
+{
+	(void)env;
+	args++;
+	while (args && *args)
+	{
+		ft_putstr(*args);
+		args++;
+		if (args && *args)
+			ft_putchar(' ');
+	}
+	ft_putchar('\n');
 	return (1);
 }
