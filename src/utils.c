@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 08:19:46 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/18 12:16:05 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/23 08:46:35 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ int				can_execute(char *name, t_array *paths, char **path, char *prg)
 	else if ((access_flag = access(*path, X_OK)) == -1)
 		ft_printf_fd(2, "%s: %s: %s\n", prg, "permission denied", name);
 	return (!access_flag);
+}
+
+char		*get_env_special(t_env *env, char *key, char *postfix, int index)
+{
+	t_array	*tmp;
+
+	if ((tmp = array_get(env->env, key)))
+	{
+		if (postfix)
+			return (ft_strjoin(tmp->data + index, postfix + 1));
+		else
+			return (ft_strdup(tmp->data + index));
+	}
+	return (NULL);
 }

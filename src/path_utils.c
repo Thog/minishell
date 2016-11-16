@@ -6,7 +6,7 @@
 /*   By: tguillem <tguillem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 08:46:40 by tguillem          #+#    #+#             */
-/*   Updated: 2016/10/14 15:41:43 by tguillem         ###   ########.fr       */
+/*   Updated: 2016/10/23 11:33:40 by tguillem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,25 @@ void			rebuild_paths(t_env *env)
 		env->paths = convert_paths(path->data);
 	else
 		env->paths = NULL;
+}
+
+char		*join_paths(char *base, char *suffix)
+{
+	char		*tmp;
+	char		*res;
+	int			base_len;
+
+	tmp = NULL;
+	if (suffix && *suffix == '/')
+		return (ft_strdup(suffix));
+	base_len = ft_strlen(base);
+	if (*(base + base_len) != '/')
+	{
+		tmp = base;
+		base = ft_strjoin(base, "/");
+	}
+	res = ft_strjoin(base, suffix);
+	if (tmp)
+		ft_strdel(&base);
+	return (res);
 }
